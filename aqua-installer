@@ -15,12 +15,12 @@ install_path=/usr/local/bin/aqua
 while getopts i:v: OPT
 do
   case $OPT in
-      v)  version=$OPTARG
-          ;;
-      i)  install_path=$OPTARG
-          ;;
-      \?) usage_exit
-          ;;
+    v) version=$OPTARG
+      ;;
+    i) install_path=$OPTARG
+      ;;
+    \?) usage_exit
+      ;;
   esac
 done
 
@@ -57,8 +57,8 @@ tempdir=$(mktemp -d)
 echo "===> Downloading $URL..." >&2
 curl --fail -L "$URL" -o "$tempdir/aqua_${OS}_${ARCH}.tar.gz"
 
-(cd "$tempdir"; tar xvzf "aqua_${OS}_${ARCH}.tar.gz")
-echo "===> Installing aqua $version ($OS/$ARCH) to $install_path ..." >&2
+(cd "$tempdir"; tar xvzf "aqua_${OS}_${ARCH}.tar.gz" > /dev/null)
+echo "===> Install aqua $version ($OS/$ARCH) to $install_path" >&2
 
 mv "$tempdir/aqua" "$install_path"
 
