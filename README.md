@@ -6,7 +6,10 @@
 
 Install [aqua](https://github.com/suzuki-shunsuke/aqua) quickly
 
-## How to install
+* [Shell](#shell)
+* [GitHub Actions](#github-actions)
+
+## Shell
 
 ```
 $ curl -sSfL https://raw.githubusercontent.com/suzuki-shunsuke/aqua-installer/v0.1.0-0/aqua-installer | bash
@@ -22,6 +25,26 @@ e.g.
 ```
 $ curl -sSfL https://raw.githubusercontent.com/suzuki-shunsuke/aqua-installer/v0.1.0-0/aqua-installer | bash -s -- -v v0.1.0-3 -i bin/aqua
 ```
+
+## GitHub Actions
+
+e.g.
+
+```yaml
+- uses: suzuki-shunsuke/aqua-installer@v0.1.0
+  with:
+    version: v0.1.0-4
+    install_path: /tmp/bin/aqua
+```
+
+### Inputs
+
+- version: (Required) installed aqua's version (e.g. `v0.1.0-4`)
+- install_path: (Default: `/usr/local/bin/aqua`) aqua's install path
+
+### Outputs
+
+Nothing
 
 ## License
 
