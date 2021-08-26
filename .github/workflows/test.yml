@@ -1,0 +1,41 @@
+---
+name: test
+on:
+  push:
+    branches: [main]
+    tags: [v*]
+  pull_request:
+    branches: [main]
+jobs:
+  default:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: bash aqua-installer
+    - run: command -v aqua
+    - run: aqua -v
+  set-version:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: bash aqua-installer
+      env:
+        AQUA_VERSION: v0.1.0-3
+    - run: command -v aqua
+    - run: aqua -v
+  set-absolute-path:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: bash aqua-installer
+      env:
+        AQUA_INSTALL_PATH: /tmp/bin/aqua
+    - run: /tmp/bin/aqua -v
+  set-relative-path:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: bash aqua-installer
+      env:
+        AQUA_INSTALL_PATH: bin/aqua
+    - run: bin/aqua -v
