@@ -1,0 +1,15 @@
+name: Install aqua
+description: Install aqua https://github.com/suzuki-shunsuke/aqua
+inputs:
+  version:
+    description: installed aqua's version (e.g. v0.1.0-4)
+    required: true
+  install_path:
+    description: aqua's install path
+    required: false
+    default: /usr/local/bin/aqua
+runs:
+  using: composite
+  steps:
+    - run: ${{ github.action_path }}/aqua-installer -v "${{ inputs.version }}" -i "${{ inputs.install_path }}"
+      shell: bash

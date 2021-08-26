@@ -1,0 +1,36 @@
+---
+name: test-actions
+on:
+  push:
+    branches: [main]
+    tags: [v*]
+  pull_request:
+    branches: [main]
+jobs:
+  default:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        with:
+          version: v0.1.0-2
+      - run: command -v aqua
+      - run: aqua -v
+  set-absolute-path:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        with:
+          version: v0.1.0-4
+          install_path: /tmp/bin/aqua
+      - run: /tmp/bin/aqua -v
+  set-relative-path:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        with:
+          version: v0.1.0-3
+          install_path: bin/aqua
+      - run: bin/aqua -v
