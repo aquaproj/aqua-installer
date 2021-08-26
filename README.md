@@ -8,10 +8,16 @@ Install [aqua](https://github.com/suzuki-shunsuke/aqua) quickly
 $ curl -sSfL https://raw.githubusercontent.com/suzuki-shunsuke/aqua-installer/v0.1.0-1/aqua-installer | bash
 ```
 
-You can pass the following parameters as environment variables.
+You can pass the following parameters.
 
-* `AQUA_VERSION`: aqua version
-* `AQUA_INSTALL_PATH`: aqua's install path (default: `/usr/local/bin/aqua`)
+* `-v [aqua version]`: aqua version
+* `-i [aqua install path]`: aqua's install path (default: `/usr/local/bin/aqua`)
+
+e.g.
+
+```
+$ curl -sSfL https://raw.githubusercontent.com/suzuki-shunsuke/aqua-installer/v0.1.0-1/aqua-installer | bash -s -- -v v0.1.0-3 -i bin/aqua
+```
 
 ## License
 

@@ -11,31 +11,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - run: bash aqua-installer
+    - run: cat aqua-installer | bash
     - run: command -v aqua
     - run: aqua -v
   set-version:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - run: bash aqua-installer
-      env:
-        AQUA_VERSION: v0.1.0-3
+    - run: cat aqua-installer | bash -s -- -v v0.1.0-3
     - run: command -v aqua
     - run: aqua -v
   set-absolute-path:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - run: bash aqua-installer
-      env:
-        AQUA_INSTALL_PATH: /tmp/bin/aqua
+    - run: cat aqua-installer | bash -s -- -i /tmp/bin/aqua
     - run: /tmp/bin/aqua -v
   set-relative-path:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - run: bash aqua-installer
-      env:
-        AQUA_INSTALL_PATH: bin/aqua
+    - run: cat aqua-installer | bash -s -- -i bin/aqua
     - run: bin/aqua -v
