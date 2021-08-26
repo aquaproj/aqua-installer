@@ -1,0 +1,11 @@
+{
+  extends: ["config:base"],
+  regexManagers: [
+    {
+      fileMatch: ["aqua-installer"],
+      matchStrings: ["version=(?<currentValue>.*?) # renovate: depName=suzuki-shunsuke/aqua\\n"],
+      depNameTemplate: "suzuki-shunsuke/aqua",
+      datasourceTemplate: "github-releases",
+    },
+  ],
+}
