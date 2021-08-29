@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - run: cat aqua-installer | bash -s -- -v v0.1.0-3
+    - run: cat aqua-installer | bash -s -- -v v0.1.0-9
     - run: command -v aqua
     - run: aqua -v
   set-absolute-path:
