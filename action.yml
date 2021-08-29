@@ -2,7 +2,7 @@ name: Install aqua
 description: Install aqua https://github.com/suzuki-shunsuke/aqua
 inputs:
   version:
-    description: installed aqua's version (e.g. v0.1.0-4)
+    description: installed aqua's version (e.g. v0.1.0-10)
     required: true
   install_path:
     description: aqua's install path
