@@ -12,7 +12,7 @@ Install [aqua](https://github.com/suzuki-shunsuke/aqua) quickly
 ## Shell
 
 ```
-$ curl -sSfL https://raw.githubusercontent.com/suzuki-shunsuke/aqua-installer/v0.1.0-0/aqua-installer | bash
+$ curl -sSfL https://raw.githubusercontent.com/suzuki-shunsuke/aqua-installer/v0.1.0/aqua-installer | bash
 ```
 
 You can pass the following parameters.
@@ -23,7 +23,7 @@ You can pass the following parameters.
 e.g.
 
 ```
-$ curl -sSfL https://raw.githubusercontent.com/suzuki-shunsuke/aqua-installer/v0.1.0-0/aqua-installer | bash -s -- -v v0.1.0-3 -i bin/aqua
+$ curl -sSfL https://raw.githubusercontent.com/suzuki-shunsuke/aqua-installer/v0.1.0/aqua-installer | bash -s -- -v v0.1.0-10 -i bin/aqua
 ```
 
 ## GitHub Actions
@@ -33,13 +33,13 @@ e.g.
 ```yaml
 - uses: suzuki-shunsuke/aqua-installer@v0.1.0
   with:
-    version: v0.1.0-4
+    version: v0.1.0-10
     install_path: /tmp/bin/aqua
 ```
 
 ### Inputs
 
-- version: (Required) installed aqua's version (e.g. `v0.1.0-4`)
+- version: (Required) installed aqua's version (e.g. `v0.1.0-10`)
 - install_path: (Default: `/usr/local/bin/aqua`) aqua's install path
 
 ### Outputs
