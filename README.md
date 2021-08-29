@@ -23,7 +23,7 @@ You can pass the following parameters.
 e.g.
 
 ```
-$ curl -sSfL https://raw.githubusercontent.com/suzuki-shunsuke/aqua-installer/v0.1.1/aqua-installer | bash -s -- -v v0.1.0-10 -i bin/aqua
+$ curl -sSfL https://raw.githubusercontent.com/suzuki-shunsuke/aqua-installer/v0.1.1/aqua-installer | bash -s -- -v v0.1.0 -i bin/aqua
 ```
 
 ## GitHub Actions
@@ -33,13 +33,13 @@ e.g.
 ```yaml
 - uses: suzuki-shunsuke/aqua-installer@v0.1.1
   with:
-    version: v0.1.0-10
+    version: v0.1.0
     install_path: /tmp/bin/aqua
 ```
 
 ### Inputs
 
-- version: (Required) installed aqua's version (e.g. `v0.1.0-10`)
+- version: (Required) installed aqua's version (e.g. `v0.1.0`)
 - install_path: (Default: `/usr/local/bin/aqua`) aqua's install path
 
 ### Outputs
