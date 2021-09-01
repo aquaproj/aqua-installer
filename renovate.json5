@@ -7,5 +7,29 @@
       depNameTemplate: "suzuki-shunsuke/aqua",
       datasourceTemplate: "github-releases",
     },
+    {
+      fileMatch: ["README.md"],
+      depNameTemplate: "suzuki-shunsuke/aqua-installer",
+      datasourceTemplate: "github-releases",
+      matchStrings: [
+        "aqua-installer/(?<currentValue>.*)/aqua-installer",
+        "aqua-installer@(?<currentValue>.*)",
+      ],
+    },
+    {
+      fileMatch: ["README.md"],
+      depNameTemplate: "suzuki-shunsuke/aqua",
+      datasourceTemplate: "github-releases",
+      matchStrings: [
+        "bash -s -- -v (?<currentValue>.*) -i",
+      ],
+    },
+    {
+      fileMatch: ["README.md"],
+      matchStrings: [
+        "version: (?<currentValue>.*?) # renovate: depName=(?<depName>.*?)\\n",
+      ],
+      datasourceTemplate: "github-releases",
+    },
   ],
 }
