@@ -33,7 +33,7 @@ e.g.
 ```yaml
 - uses: suzuki-shunsuke/aqua-installer@v0.1.2
   with:
-  version: v0.3.1 # renovate: depName=suzuki-shunsuke/aqua
+    version: v0.3.1 # renovate: depName=suzuki-shunsuke/aqua
     install_path: /tmp/bin/aqua
 ```
 
