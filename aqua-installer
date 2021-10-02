@@ -9,7 +9,7 @@ usage_exit() {
   exit 1
 }
 
-version=v0.7.3 # renovate: depName=suzuki-shunsuke/aqua
+version=v0.7.4 # renovate: depName=suzuki-shunsuke/aqua
 install_path=/usr/local/bin/aqua
 
 while getopts i:v: OPT
