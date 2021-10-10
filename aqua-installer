@@ -9,7 +9,6 @@ usage_exit() {
   exit 1
 }
 
-version=v0.7.6 # renovate: depName=suzuki-shunsuke/aqua
 install_path=/usr/local/bin/aqua
 
 while getopts i:v: OPT
@@ -52,7 +51,13 @@ ARCH="$(uname_arch)"
 
 mkdir -p "$(dirname "$install_path")"
 
-URL=https://github.com/suzuki-shunsuke/aqua/releases/download/${version}/aqua_${OS}_${ARCH}.tar.gz
+if [ -n "${version:-}" ]; then
+  URL=https://github.com/suzuki-shunsuke/aqua/releases/download/${version}/aqua_${OS}_${ARCH}.tar.gz
+else
+  URL=https://github.com/suzuki-shunsuke/aqua/releases/latest/download/aqua_${OS}_${ARCH}.tar.gz
+  version=latest
+fi
+
 tempdir=$(mktemp -d)
 echo "===> Downloading $URL ..." >&2
 curl --fail -L "$URL" -o "$tempdir/aqua_${OS}_${ARCH}.tar.gz"

@@ -26,6 +26,8 @@ e.g.
 $ curl -sSfL https://raw.githubusercontent.com/suzuki-shunsuke/aqua-installer/v0.1.3/aqua-installer | bash -s -- -v v0.7.6 -i bin/aqua
 ```
 
+If the version isn't specified, the latest version would be installed.
+
 ## GitHub Actions
 
 e.g.
