@@ -4,13 +4,13 @@
   regexManagers: [
     {
       fileMatch: ["aqua-installer"],
-      matchStrings: ["version=(?<currentValue>.*?) # renovate: depName=suzuki-shunsuke/aqua\\n"],
-      depNameTemplate: "suzuki-shunsuke/aqua",
+      matchStrings: ["version=(?<currentValue>.*?) # renovate: depName=aquaproj/aqua\\n"],
+      depNameTemplate: "aquaproj/aqua",
       datasourceTemplate: "github-releases",
     },
     {
       fileMatch: ["README.md"],
-      depNameTemplate: "suzuki-shunsuke/aqua-installer",
+      depNameTemplate: "aquaproj/aqua-installer",
       datasourceTemplate: "github-releases",
       matchStrings: [
         "aqua-installer/(?<currentValue>.*)/aqua-installer",
@@ -19,7 +19,7 @@
     },
     {
       fileMatch: ["README.md"],
-      depNameTemplate: "suzuki-shunsuke/aqua",
+      depNameTemplate: "aquaproj/aqua",
       datasourceTemplate: "github-releases",
       matchStrings: [
         "bash -s -- -v (?<currentValue>.*) -i",

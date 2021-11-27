@@ -1,10 +1,10 @@
 # aqua-installer
 
-[![Build Status](https://github.com/suzuki-shunsuke/aqua-installer/workflows/test/badge.svg)](https://github.com/suzuki-shunsuke/aqua-installer/actions)
-[![GitHub last commit](https://img.shields.io/github/last-commit/suzuki-shunsuke/aqua-installer.svg)](https://github.com/suzuki-shunsuke/aqua-installer)
-[![License](http://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://raw.githubusercontent.com/suzuki-shunsuke/aqua-installer/main/LICENSE)
+[![Build Status](https://github.com/aquaproj/aqua-installer/workflows/test/badge.svg)](https://github.com/aquaproj/aqua-installer/actions)
+[![GitHub last commit](https://img.shields.io/github/last-commit/aquaproj/aqua-installer.svg)](https://github.com/aquaproj/aqua-installer)
+[![License](http://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://raw.githubusercontent.com/aquaproj/aqua-installer/main/LICENSE)
 
-Install [aqua](https://github.com/suzuki-shunsuke/aqua) quickly
+Install [aqua](https://github.com/aquaproj/aqua) quickly
 
 * [Shell](#shell)
 * [GitHub Actions](#github-actions)
@@ -12,7 +12,7 @@ Install [aqua](https://github.com/suzuki-shunsuke/aqua) quickly
 ## Shell
 
 ```
-$ curl -sSfL https://raw.githubusercontent.com/suzuki-shunsuke/aqua-installer/v0.2.0/aqua-installer | bash
+$ curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v0.2.0/aqua-installer | bash
 ```
 
 You can pass the following parameters.
@@ -23,7 +23,7 @@ You can pass the following parameters.
 e.g.
 
 ```
-$ curl -sSfL https://raw.githubusercontent.com/suzuki-shunsuke/aqua-installer/v0.2.0/aqua-installer | bash -s -- -v v0.7.16 -i bin/aqua
+$ curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v0.2.0/aqua-installer | bash -s -- -v v0.7.16 -i bin/aqua
 ```
 
 If the version isn't specified, the latest version would be installed.
@@ -33,9 +33,9 @@ If the version isn't specified, the latest version would be installed.
 e.g.
 
 ```yaml
-- uses: suzuki-shunsuke/aqua-installer@v0.2.0
+- uses: aquaproj/aqua-installer@v0.2.0
   with:
-    version: v0.7.16 # renovate: depName=suzuki-shunsuke/aqua
+    version: v0.7.16 # renovate: depName=aquaproj/aqua
     install_path: /tmp/bin/aqua
 ```
 
