@@ -23,7 +23,7 @@ You can pass the following parameters.
 e.g.
 
 ```
-$ curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v0.3.0/aqua-installer | bash -s -- -v v0.8.6 -i bin/aqua
+$ curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v0.3.0/aqua-installer | bash -s -- -v v0.8.7 -i bin/aqua
 ```
 
 If the version isn't specified, the latest version would be installed.
@@ -35,7 +35,7 @@ e.g.
 ```yaml
 - uses: aquaproj/aqua-installer@v0.3.0
   with:
-    version: v0.8.6 # renovate: depName=aquaproj/aqua
+    version: v0.8.7 # renovate: depName=aquaproj/aqua
     install_path: /tmp/bin/aqua
 ```
 
