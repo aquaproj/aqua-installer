@@ -39,8 +39,6 @@ e.g.
     install_path: /tmp/bin/aqua
 ```
 
-Please see [int128/aqua-action](https://github.com/int128/aqua-action) too.
-
 ### Inputs
 
 - version: (Required) installed aqua's version (e.g. `v0.1.0`)
