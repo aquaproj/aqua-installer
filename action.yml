@@ -1,15 +1,33 @@
 name: Install aqua
-description: Install aqua https://github.com/aquaproj/aqua
+description: Install aqua https://aquaproj.github.io/ and install toos with aqua
 inputs:
-  version:
-    description: installed aqua's version (e.g. v0.1.0)
+  aqua_version:
+    description: installed aqua's version (e.g. v0.8.7)
     required: true
   install_path:
     description: aqua's install path
     required: false
     default: /usr/local/bin/aqua
+  enable_aqua_install:
+    required: false
+    default: "true"
+  aqua_opts:
+    required: false
+    default: "-l"
+  working_directory:
+    required: false
+    default: ""
 runs:
   using: composite
   steps:
-    - run: ${{ github.action_path }}/aqua-installer -v "${{ inputs.version }}" -i "${{ inputs.install_path }}"
+    - run: ${{ github.action_path }}/aqua-installer -v "${{ inputs.aqua_version }}" -i "${{ inputs.install_path }}"
       shell: bash
+      working-directory: ${{ inputs.working_directory }}
+    - run: ${{ inputs.install_path }} i ${{ inputs.aqua_opts }}
+      shell: bash
+      working-directory: ${{ inputs.working_directory }}
+      if: ${{ inputs.enable_aqua_install }}
+    - run: echo "${AQUA_ROOT_DIR:-$HOME/.aqua}/bin" >> $GITHUB_PATH
+      shell: bash
+      working-directory: ${{ inputs.working_directory }}
+      if: ${{ inputs.enable_aqua_install }}

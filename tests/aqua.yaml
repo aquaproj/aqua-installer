@@ -1,0 +1,9 @@
+---
+# aqua - Declarative CLI Version Manager
+# https://aquaproj.github.io/
+registries:
+- type: standard
+  ref: v0.12.2 # renovate: depName=aquaproj/aqua-registry
+
+packages:
+- name: suzuki-shunsuke/github-comment@v4.1.0
