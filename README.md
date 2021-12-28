@@ -6,12 +6,12 @@
 
 Install [aqua](https://github.com/aquaproj/aqua) quickly
 
-* [Shell](#shell)
+* [Shell Script](#shell-script)
 * [GitHub Actions](#github-actions)
 
-## Shell
+## Shell Script
 
-```
+```console
 $ curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v0.4.0/aqua-installer | bash
 ```
 
@@ -22,7 +22,7 @@ You can pass the following parameters.
 
 e.g.
 
-```
+```console
 $ curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v0.4.0/aqua-installer | bash -s -- -v v0.8.7 -i bin/aqua
 ```
 
@@ -35,18 +35,13 @@ e.g.
 ```yaml
 - uses: aquaproj/aqua-installer@v0.4.0
   with:
-    version: v0.8.7 # renovate: depName=aquaproj/aqua
+    aqua_version: v0.8.7
     install_path: /tmp/bin/aqua
 ```
 
-### Inputs
+### Inputs, Outputs
 
-- version: (Required) installed aqua's version (e.g. `v0.1.0`)
-- install_path: (Default: `/usr/local/bin/aqua`) aqua's install path
-
-### Outputs
-
-Nothing
+Please see [action.yaml](action.yaml)
 
 ## License
 
