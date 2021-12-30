@@ -23,7 +23,7 @@ You can pass the following parameters.
 e.g.
 
 ```console
-$ curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v0.4.0/aqua-installer | bash -s -- -v v0.8.9 -i bin/aqua
+$ curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v0.4.0/aqua-installer | bash -s -- -v v0.8.10 -i bin/aqua
 ```
 
 If the version isn't specified, the latest version would be installed.
