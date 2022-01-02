@@ -22,15 +22,9 @@
       depNameTemplate: "aquaproj/aqua",
       datasourceTemplate: "github-releases",
       matchStrings: [
+        "aqua_version: (?<currentValue>.*?)\\n",
         "bash -s -- -v (?<currentValue>.*) -i",
       ],
-    },
-    {
-      fileMatch: ["README.md"],
-      matchStrings: [
-        "version: (?<currentValue>.*?) # renovate: depName=(?<depName>.*?)\\n",
-      ],
-      datasourceTemplate: "github-releases",
     },
   ],
 }
