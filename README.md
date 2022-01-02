@@ -35,7 +35,7 @@ e.g.
 ```yaml
 - uses: aquaproj/aqua-installer@v0.4.0
   with:
-    aqua_version: v0.8.7
+    aqua_version: v0.8.12
     install_path: /tmp/bin/aqua
 ```
 
