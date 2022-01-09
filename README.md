@@ -36,12 +36,44 @@ e.g.
 - uses: aquaproj/aqua-installer@v0.4.0
   with:
     aqua_version: v0.8.13
-    install_path: /tmp/bin/aqua
 ```
 
-### Inputs, Outputs
+```yaml
+- uses: aquaproj/aqua-installer@v0.4.0
+  with:
+    aqua_version: v0.8.13
+    install_path: /tmp/bin/aqua
+    working_directory: foo
+    aqua_opts: ""
+  env:
+    AQUA_CONFIG: aqua-config.yaml
+    AQUA_LOG_LEVEL: debug
+```
 
-Please see [action.yaml](action.yaml)
+### Inputs
+
+Please see [action.yaml](action.yaml) too.
+
+#### Required Inputs
+
+name | description
+--- | --- 
+aqua_version | Installed aqua version
+
+#### Optional Inputs
+
+name | default | description
+--- | --- | ---
+install_path | /usr/local/bin/aqua | aqua's install path
+enable_aqua_install | `"true"` | if this is `"false"`, executing `aqua i` and updating `GITHUB_PATH` are skipped
+aqua_opts | `-l` | `aqua i`'s option. If you want to specify global options, please use environment variables
+working_directory | `""` | working directory
+
+### Outputs
+
+Please see [action.yaml](action.yaml) too.
+
+Nothing.
 
 ## License
 
