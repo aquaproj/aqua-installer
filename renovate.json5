@@ -1,19 +1,19 @@
 {
-  extends: ["config:base"],
+  extends: [
+    "config:base",
+    "github>aquaproj/aqua-renovate-config#0.1.8",
+    "github>aquaproj/aqua-renovate-config:installer-script#0.1.8(README\\.md)",
+  ],
   automerge: true,
+  major: {
+    automerge: false,
+  },
   regexManagers: [
-    {
-      fileMatch: ["aqua-installer"],
-      matchStrings: ["version=(?<currentValue>.*?) # renovate: depName=aquaproj/aqua\\n"],
-      depNameTemplate: "aquaproj/aqua",
-      datasourceTemplate: "github-releases",
-    },
     {
       fileMatch: ["README.md"],
       depNameTemplate: "aquaproj/aqua-installer",
       datasourceTemplate: "github-releases",
       matchStrings: [
-        "aqua-installer/(?<currentValue>.*)/aqua-installer",
         "aqua-installer@(?<currentValue>.*)",
       ],
     },
