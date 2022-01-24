@@ -9,7 +9,7 @@ usage_exit() {
   exit 1
 }
 
-install_path=/usr/local/bin/aqua
+install_path=${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua
 
 while getopts i:v: OPT
 do
