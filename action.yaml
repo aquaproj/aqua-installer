@@ -7,7 +7,6 @@ inputs:
   install_path:
     description: aqua's install path
     required: false
-    default: /usr/local/bin/aqua
   enable_aqua_install:
     required: false
     default: "true"
@@ -25,14 +24,16 @@ runs:
         exit 1
       shell: bash
       if: inputs.aqua_version == ''
-    - run: ${{ github.action_path }}/aqua-installer -v "${{ inputs.aqua_version }}" -i "${{ inputs.install_path }}"
-      shell: bash
-      working-directory: ${{ inputs.working_directory }}
-    - run: ${{ inputs.install_path }} i ${{ inputs.aqua_opts }}
-      shell: bash
-      working-directory: ${{ inputs.working_directory }}
-      if: inputs.enable_aqua_install == 'true'
+
     - run: echo "${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin" >> $GITHUB_PATH
       shell: bash
       working-directory: ${{ inputs.working_directory }}
       if: inputs.enable_aqua_install == 'true'
+
+    - run: bash "${{github.action_path}}/action.sh"
+      working-directory: ${{ inputs.working_directory }}
+      shell: bash
+      env:
+        AQUA_INSTALL_PATH: ${{ inputs.install_path }}
+        AQUA_VERSION: ${{ inputs.aqua_version }}
+        AQUA_OPTS: ${{ inputs.aqua_opts }}
