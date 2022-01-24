@@ -18,7 +18,7 @@ $ curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v0.6.0/aq
 You can pass the following parameters.
 
 * `-v [aqua version]`: aqua version
-* `-i [aqua install path]`: aqua's install path (default: `/usr/local/bin/aqua`)
+* `-i [aqua install path]`: aqua's install path (default: `${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua`)
 
 e.g.
 
@@ -64,7 +64,7 @@ aqua_version | Installed aqua version
 
 name | default | description
 --- | --- | ---
-install_path | /usr/local/bin/aqua | aqua's install path
+install_path | ${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua | aqua's install path
 enable_aqua_install | `"true"` | if this is `"false"`, executing `aqua i` and updating `GITHUB_PATH` are skipped
 aqua_opts | `-l` | `aqua i`'s option. If you want to specify global options, please use environment variables
 working_directory | `""` | working directory
