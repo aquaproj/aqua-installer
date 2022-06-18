@@ -18,7 +18,9 @@ $ curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v1.0.0/aq
 You can pass the following parameters.
 
 * `-v [aqua version]`: aqua version
-* `-i [aqua install path]`: aqua's install path (default: `${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua`)
+* `-i [aqua install path]`: aqua's install path
+  * default (linux, macOS): `${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua`
+  * default (windows): `${AQUA_ROOT_DIR:-$HOME/AppData/Local/aquaproj-aqua}/bin/aqua`
 
 e.g.
 
