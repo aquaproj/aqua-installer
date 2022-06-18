@@ -9,22 +9,6 @@ usage_exit() {
   exit 1
 }
 
-install_path=${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua
-
-while getopts i:v: OPT
-do
-  case $OPT in
-    v) version=$OPTARG
-      ;;
-    i) install_path=$OPTARG
-      ;;
-    \?) usage_exit
-      ;;
-  esac
-done
-
-shift $((OPTIND - 1))
-
 uname_os() {
   local os
   os=$(uname -s | tr '[:upper:]' '[:lower:]')
@@ -48,6 +32,25 @@ uname_arch() {
 
 OS="$(uname_os)"
 ARCH="$(uname_arch)"
+
+install_path=${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua
+if [ "$OS" = windows ]; then
+  install_path=${AQUA_ROOT_DIR:-$HOME/AppData/Local/aquaproj-aqua}/bin/aqua
+fi
+
+while getopts i:v: OPT
+do
+  case $OPT in
+    v) version=$OPTARG
+      ;;
+    i) install_path=$OPTARG
+      ;;
+    \?) usage_exit
+      ;;
+  esac
+done
+
+shift $((OPTIND - 1))
 
 mkdir -p "$(dirname "$install_path")"
 
