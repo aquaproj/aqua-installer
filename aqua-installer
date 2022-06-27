@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # aqua-installer - shell script to install aqua
-# https://github.com/aquaproj/aqua-installer
+# https://github.com/clivm/aqua-installer
 
 set -eu
 
@@ -55,9 +55,9 @@ shift $((OPTIND - 1))
 mkdir -p "$(dirname "$install_path")"
 
 if [ -n "${version:-}" ]; then
-  URL=https://github.com/aquaproj/aqua/releases/download/${version}/aqua_${OS}_${ARCH}.tar.gz
+  URL=https://github.com/clivm/aqua/releases/download/${version}/aqua_${OS}_${ARCH}.tar.gz
 else
-  URL=https://github.com/aquaproj/aqua/releases/latest/download/aqua_${OS}_${ARCH}.tar.gz
+  URL=https://github.com/clivm/aqua/releases/latest/download/aqua_${OS}_${ARCH}.tar.gz
   version=latest
 fi
 

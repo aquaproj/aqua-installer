@@ -1,5 +1,5 @@
 name: Install aqua
-description: Install aqua https://aquaproj.github.io/ and install toos with aqua
+description: Install aqua https://clivm.github.io/ and install toos with aqua
 inputs:
   aqua_version:
     description: installed aqua's version (e.g. v0.8.7)
@@ -20,7 +20,7 @@ runs:
   using: composite
   steps:
     - run: |
-        echo "::error ::aqua_version is required. https://github.com/aquaproj/aqua-installer"
+        echo "::error ::aqua_version is required. https://github.com/clivm/aqua-installer"
         exit 1
       shell: bash
       if: inputs.aqua_version == ''
