@@ -19,8 +19,8 @@ You can pass the following parameters.
 
 * `-v [clivm version]`: clivm version
 * `-i [clivm install path]`: clivm's install path
-  * default (linux, macOS): `${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/clivm}/bin/clivm`
-  * default (windows): `${AQUA_ROOT_DIR:-$HOME/AppData/Local/clivm}/bin/clivm`
+  * default (linux, macOS): `${CLIVM_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/clivm}/bin/clivm`
+  * default (windows): `${CLIVM_ROOT_DIR:-$HOME/AppData/Local/clivm}/bin/clivm`
 
 e.g.
 
@@ -48,8 +48,8 @@ e.g.
     working_directory: foo
     clivm_opts: ""
   env:
-    AQUA_CONFIG: clivm-config.yaml
-    AQUA_LOG_LEVEL: debug
+    CLIVM_CONFIG: clivm-config.yaml
+    CLIVM_LOG_LEVEL: debug
 ```
 
 ### Inputs
@@ -66,7 +66,7 @@ clivm_version | Installed clivm version
 
 name | default | description
 --- | --- | ---
-install_path | ${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/clivm}/bin/clivm | clivm's install path
+install_path | ${CLIVM_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/clivm}/bin/clivm | clivm's install path
 enable_clivm_install | `"true"` | if this is `"false"`, executing `clivm i` and updating `GITHUB_PATH` are skipped
 clivm_opts | `-l` | `clivm i`'s option. If you want to specify global options, please use environment variables
 working_directory | `""` | working directory
