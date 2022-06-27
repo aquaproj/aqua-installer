@@ -25,7 +25,7 @@ You can pass the following parameters.
 e.g.
 
 ```console
-$ curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v1.0.0/aqua-installer | bash -s -- -v v1.14.0 -i bin/aqua
+$ curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v1.0.0/aqua-installer | bash -s -- -v v1.14.1 -i bin/aqua
 ```
 
 If the version isn't specified, the latest version would be installed.
@@ -37,13 +37,13 @@ e.g.
 ```yaml
 - uses: aquaproj/aqua-installer@v1.0.0
   with:
-    aqua_version: v1.14.0
+    aqua_version: v1.14.1
 ```
 
 ```yaml
 - uses: aquaproj/aqua-installer@v1.0.0
   with:
-    aqua_version: v1.14.0
+    aqua_version: v1.14.1
     install_path: /tmp/bin/aqua
     working_directory: foo
     aqua_opts: ""
