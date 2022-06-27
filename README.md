@@ -19,8 +19,8 @@ You can pass the following parameters.
 
 * `-v [aqua version]`: aqua version
 * `-i [aqua install path]`: aqua's install path
-  * default (linux, macOS): `${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua`
-  * default (windows): `${AQUA_ROOT_DIR:-$HOME/AppData/Local/aquaproj-aqua}/bin/aqua`
+  * default (linux, macOS): `${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/clivm}/bin/aqua`
+  * default (windows): `${AQUA_ROOT_DIR:-$HOME/AppData/Local/clivm}/bin/aqua`
 
 e.g.
 
@@ -66,7 +66,7 @@ aqua_version | Installed aqua version
 
 name | default | description
 --- | --- | ---
-install_path | ${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua | aqua's install path
+install_path | ${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/clivm}/bin/aqua | aqua's install path
 enable_aqua_install | `"true"` | if this is `"false"`, executing `aqua i` and updating `GITHUB_PATH` are skipped
 aqua_opts | `-l` | `aqua i`'s option. If you want to specify global options, please use environment variables
 working_directory | `""` | working directory

@@ -33,9 +33,9 @@ uname_arch() {
 OS="$(uname_os)"
 ARCH="$(uname_arch)"
 
-install_path=${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua
+install_path=${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/clivm}/bin/aqua
 if [ "$OS" = windows ]; then
-  install_path=${AQUA_ROOT_DIR:-$HOME/AppData/Local/aquaproj-aqua}/bin/aqua
+  install_path=${AQUA_ROOT_DIR:-$HOME/AppData/Local/clivm}/bin/aqua
 fi
 
 while getopts i:v: OPT
