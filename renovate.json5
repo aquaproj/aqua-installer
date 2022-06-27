@@ -1,8 +1,8 @@
 {
   extends: [
     "config:base",
-    "github>clivm/aqua-renovate-config#1.1.0",
-    "github>clivm/aqua-renovate-config:installer-script#1.1.0(README\\.md)",
+    "github>clivm/clivm-renovate-config#1.1.0",
+    "github>clivm/clivm-renovate-config:installer-script#1.1.0(README\\.md)",
   ],
   automerge: true,
   major: {
@@ -11,18 +11,18 @@
   regexManagers: [
     {
       fileMatch: ["README.md"],
-      depNameTemplate: "clivm/aqua-installer",
+      depNameTemplate: "clivm/clivm-installer",
       datasourceTemplate: "github-releases",
       matchStrings: [
-        "aqua-installer@(?<currentValue>.*)",
+        "clivm-installer@(?<currentValue>.*)",
       ],
     },
     {
       fileMatch: ["README.md"],
-      depNameTemplate: "clivm/aqua",
+      depNameTemplate: "clivm/clivm",
       datasourceTemplate: "github-releases",
       matchStrings: [
-        "aqua_version: (?<currentValue>.*?)\\n",
+        "clivm_version: (?<currentValue>.*?)\\n",
         "bash -s -- -v (?<currentValue>.*) -i",
       ],
     },

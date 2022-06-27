@@ -1,16 +1,16 @@
-name: Install aqua
-description: Install aqua https://clivm.github.io/ and install toos with aqua
+name: Install clivm
+description: Install clivm https://clivm.github.io/ and install toos with clivm
 inputs:
-  aqua_version:
-    description: installed aqua's version (e.g. v0.8.7)
+  clivm_version:
+    description: installed clivm's version (e.g. v0.8.7)
     required: true
   install_path:
-    description: aqua's install path
+    description: clivm's install path
     required: false
-  enable_aqua_install:
+  enable_clivm_install:
     required: false
     default: "true"
-  aqua_opts:
+  clivm_opts:
     required: false
     default: "-l"
   working_directory:
@@ -20,20 +20,20 @@ runs:
   using: composite
   steps:
     - run: |
-        echo "::error ::aqua_version is required. https://github.com/clivm/aqua-installer"
+        echo "::error ::clivm_version is required. https://github.com/clivm/clivm-installer"
         exit 1
       shell: bash
-      if: inputs.aqua_version == ''
+      if: inputs.clivm_version == ''
 
     - run: echo "${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/clivm}/bin" >> $GITHUB_PATH
       shell: bash
       working-directory: ${{ inputs.working_directory }}
-      if: inputs.enable_aqua_install == 'true'
+      if: inputs.enable_clivm_install == 'true'
 
     - run: bash "${{github.action_path}}/action.sh"
       working-directory: ${{ inputs.working_directory }}
       shell: bash
       env:
         AQUA_INSTALL_PATH: ${{ inputs.install_path }}
-        AQUA_VERSION: ${{ inputs.aqua_version }}
-        AQUA_OPTS: ${{ inputs.aqua_opts }}
+        AQUA_VERSION: ${{ inputs.clivm_version }}
+        AQUA_OPTS: ${{ inputs.clivm_opts }}
