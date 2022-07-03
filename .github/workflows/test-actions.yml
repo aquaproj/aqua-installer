@@ -8,7 +8,12 @@ on:
     branches: [main]
 jobs:
   default:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        env:
+          - runs-on: windows-latest
+          - runs-on: ubuntu-latest
+    runs-on: ${{ matrix.env.runs-on }}
     steps:
       - uses: actions/checkout@v3
       - uses: ./
@@ -20,7 +25,12 @@ jobs:
       - run: github-comment -v
         working-directory: tests
   set-absolute-path:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        env:
+          - runs-on: windows-latest
+          - runs-on: ubuntu-latest
+    runs-on: ${{ matrix.env.runs-on }}
     steps:
       - uses: actions/checkout@v3
       - uses: ./
@@ -30,7 +40,12 @@ jobs:
           working_directory: tests
       - run: /tmp/bin/aqua -v
   set-relative-path:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        env:
+          - runs-on: windows-latest
+          - runs-on: ubuntu-latest
+    runs-on: ${{ matrix.env.runs-on }}
     steps:
       - uses: actions/checkout@v3
       - uses: ./
