@@ -66,7 +66,7 @@ aqua_version | Installed aqua version
 
 name | default | description
 --- | --- | ---
-install_path | ${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua | aqua's install path
+install_path | `${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua` | aqua's install path
 enable_aqua_install | `"true"` | if this is `"false"`, executing `aqua i` and updating `GITHUB_PATH` are skipped
 aqua_opts | `-l` | `aqua i`'s option. If you want to specify global options, please use environment variables
 working_directory | `""` | working directory
