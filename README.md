@@ -7,6 +7,7 @@
 Install [aqua](https://github.com/aquaproj/aqua) quickly
 
 * [Shell Script](#shell-script)
+* [Go](#go)
 * [GitHub Actions](#github-actions)
 
 ## Shell Script
