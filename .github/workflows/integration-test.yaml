@@ -19,15 +19,15 @@ jobs:
     - run: go run main.go -version
 
     - run: go run main.go
-    - run: $HOME/.local/share/aquaproj-aqua/bin/aqua -v
+    - run: '"$HOME/.local/share/aquaproj-aqua/bin/aqua" -v'
 
     - name: Test overwrite
       run: go run main.go -aqua-version v1.17.0
-    - run: $HOME/.local/share/aquaproj-aqua/bin/aqua -v
+    - run: '"$HOME/.local/share/aquaproj-aqua/bin/aqua" -v'
 
     - name: Test latest and -o
-      run: go run main.go -aqua-version latest -o $HOME/bin/aqua
-    - run: $HOME/bin/aqua -v
+      run: go run main.go -aqua-version latest -o "$HOME/bin/aqua"
+    - run: '"$HOME/bin/aqua" -v'
 
   build-windows:
     runs-on: windows-latest
