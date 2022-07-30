@@ -30,6 +30,32 @@ $ curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v1.0.0/aq
 
 If the version isn't specified, the latest version would be installed.
 
+## Go
+
+```console
+$ go run github.com/aquaproj/aqua-installer@latest -help
+aqua-installer - Install aqua
+
+https://github.com/aquaproj/aqua-installer
+
+Usage:
+	$ aqua-installer [--aqua-version latest] [-o <install path>] [-os <OS>] [-arch <ARCH>]
+
+Options:
+	--help          show this help message
+	--version       show aqua-installer version
+	--aqua-version  aqua version. The default value is "latest"
+	-o              File Path where aqua is installed. The default value is ${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin
+	-os             OS (e.g. linux, darwin, windows). By default, Go's runtime.GOOS. You can change by the environment variable AQUA_GOOS
+	-arch           CPU Architecture (amd64 or arm64). By default, Go's runtime.GOARCH. You can change by the environment variable AQUA_GOARCH
+```
+
+e.g.
+
+```console
+$ go run github.com/aquaproj/aqua-installer@latest
+```
+
 ## GitHub Actions
 
 e.g.

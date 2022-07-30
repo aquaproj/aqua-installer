@@ -1,0 +1,79 @@
+---
+name: integration-test
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-go@v3.2.1
+      with:
+        go-version: '1.18.4'
+        cache: true
+
+    - run: go run main.go -help
+    - run: go run main.go -version
+
+    - run: go run main.go
+    - run: $HOME/.local/share/aquaproj-aqua/bin/aqua -v
+
+    - name: Test overwrite
+      run: go run main.go -aqua-version v1.17.0
+    - run: $HOME/.local/share/aquaproj-aqua/bin/aqua -v
+
+    - name: Test latest and -o
+      run: go run main.go -aqua-version latest -o $HOME/bin/aqua
+    - run: $HOME/bin/aqua -v
+
+  build-windows:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-go@v3.2.1
+      with:
+        go-version: '1.18.4'
+        cache: true
+
+    - run: go run main.go -help
+    - run: go run main.go -version
+
+    - run: go run main.go
+    - run: C:\\Users\\runneradmin\\AppData\\Local\\aquaproj-aqua\\bin\\aqua.exe -v
+
+    - name: Test overwrite
+      run: go run main.go -aqua-version v1.17.0
+    - run: C:\\Users\\runneradmin\\AppData\\Local\\aquaproj-aqua\\bin\\aqua.exe -v
+
+    - name: Test latest and -o
+      run: go run main.go -aqua-version latest -o C:\\Users\\runneradmin\\bin\\aqua.exe
+    - run: C:\\Users\\runneradmin\\bin\\aqua.exe -v
+
+  build-windows-pwsh:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-go@v3.2.1
+      with:
+        go-version: '1.18.4'
+        cache: true
+
+    - run: go run main.go -help
+    - run: go run main.go -version
+
+    - run: go run main.go
+    - run: C:\\Users\\runneradmin\\AppData\\Local\\aquaproj-aqua\\bin\\aqua.exe -v
+
+    - name: Test overwrite
+      run: go run main.go -aqua-version v1.17.0
+    - run: C:\\Users\\runneradmin\\AppData\\Local\\aquaproj-aqua\\bin\\aqua.exe -v
+
+    - name: Test latest and -o
+      run: go run main.go -aqua-version latest -o C:\\Users\\runneradmin\\bin\\aqua.exe
+    - run: C:\\Users\\runneradmin\\bin\\aqua.exe -v
