@@ -1,0 +1,22 @@
+---
+name: test-go
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  test-go:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: aquaproj/aqua-installer@v1.0.0
+      with:
+        aqua_version: v1.18.0
+    - uses: actions/setup-go@v3.2.1
+      with:
+        go-version: '1.18.4'
+        cache: true
+
+    - uses: suzuki-shunsuke/github-action-golangci-lint@v0.1.3
+    - run: go test -v ./... -race -covermode=atomic
