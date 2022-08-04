@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"github.com/aquaproj/aqua-installer/pkg/api"
+	"github.com/aquaproj/aqua-installer/pkg/cli"
 )
 
 var (
@@ -13,7 +14,7 @@ var (
 )
 
 func main() {
-	if err := api.Run(&api.LDFlags{
+	if err := cli.Run(&api.LDFlags{
 		Version: version,
 		Commit:  commit,
 		Date:    date,

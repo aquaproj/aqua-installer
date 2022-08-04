@@ -10,7 +10,7 @@ import (
 	"github.com/adrg/xdg"
 )
 
-func getRootDir() string {
+func GetRootDir() string {
 	if rootDir := os.Getenv("AQUA_ROOT_DIR"); rootDir != "" {
 		return rootDir
 	}

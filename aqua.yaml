@@ -9,3 +9,6 @@ packages:
 - name: reviewdog/reviewdog@v0.14.1
 - name: suzuki-shunsuke/cmdx@v1.6.1
 - name: golangci/golangci-lint@v1.48.0
+- name: golang/go
+  # GopherJS 1.17.2+go1.17.9 requires a Go 1.17.x distribution
+  version: go1.17.13
