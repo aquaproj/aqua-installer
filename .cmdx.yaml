@@ -22,6 +22,8 @@ tasks:
   description: Build action by GopherJS
   usage: Build action by GopherJS
   script: gopherjs build -o dist/index.js ./cmd/action
+  environment:
+    GOOS: linux
 - name: release
   short: r
   description: release the new version
