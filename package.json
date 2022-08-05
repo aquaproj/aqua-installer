@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "build": "ncc build src/index.js --license LICENSE"
+  },
   "dependencies": {
     "xhr2": "^0.2.1"
   }
