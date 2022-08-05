@@ -69,7 +69,7 @@ func Install(ctx context.Context, param *Param) error {
 	// if err := os.Chmod(param.Dest, filePermission); err != nil {
 	// 	return fmt.Errorf("change a file permission %s: %w", param.Dest, err)
 	// }
-	if err := unarchive(f, resp.Body, param.OS == "windows"); err != nil {
+	if err := Unarchive(f, resp.Body, param.OS == "windows"); err != nil {
 		return fmt.Errorf("downloand and unarchive aqua: %w", err)
 	}
 	return nil

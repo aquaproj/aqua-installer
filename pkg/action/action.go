@@ -1,6 +1,7 @@
 package action
 
 import (
+	"bytes"
 	"context"
 	"errors"
 	"fmt"
@@ -13,6 +14,7 @@ import (
 
 	"github.com/aquaproj/aqua-installer/pkg/api"
 	"github.com/mattn/go-shellwords"
+	xhr "github.com/rocketlaunchr/gopherjs-xhr"
 	githubactions "github.com/sethvargo/go-githubactions"
 )
 
@@ -88,13 +90,13 @@ func Run(ldflags *api.LDFlags) error { //nolint:funlen,cyclop
 
 	if param.Dest == "" {
 		param.Dest = filepath.Join(binDir, "aqua")
-		if param.OS == "windows" {
+		if param.OS == osWindows {
 			param.Dest += ".exe"
 		}
 	}
 
 	log.Printf("[INFO] Installing aqua %s to %s", param.AquaVersion, param.Dest)
-	if err := api.Install(ctx, param); err != nil {
+	if err := install(ctx, param); err != nil {
 		return fmt.Errorf("install aqua: %w", err)
 	}
 
@@ -124,6 +126,49 @@ func aquaI(ctx context.Context, workingDir string, opts []string) error {
 	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {
 		return fmt.Errorf("execute a command: aqua i: %w", err)
+	}
+	return nil
+}
+
+const (
+	dirPermission  os.FileMode = 0o755
+	filePermission os.FileMode = 0o755
+)
+
+func install(ctx context.Context, param *api.Param) error {
+	if err := os.MkdirAll(filepath.Dir(param.Dest), dirPermission); err != nil {
+		return fmt.Errorf("create a directory where aqua is installed: %w", err)
+	}
+	var u string
+	if param.AquaVersion == "latest" {
+		u = fmt.Sprintf("https://github.com/aquaproj/aqua/releases/latest/download/aqua_%s_%s.tar.gz", param.OS, param.Arch)
+	} else {
+		u = fmt.Sprintf("https://github.com/aquaproj/aqua/releases/download/%s/aqua_%s_%s.tar.gz", param.AquaVersion, param.OS, param.Arch)
+	}
+	log.Printf("Downloading %s", u)
+	req := xhr.NewRequest("GET", u)
+	req.ResponseType = xhr.Blob
+	if err := req.Send(ctx, nil); err != nil {
+		return fmt.Errorf("send a HTTP request: %w", err)
+	}
+	body := req.ResponseBytes()
+	if !req.IsStatus2xx() {
+		return fmt.Errorf("download aqua but status code != 2xx: status_code=%d, response_body=%s", req.Status, string(body))
+	}
+	f, err := os.OpenFile(param.Dest, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, filePermission)
+	if err != nil {
+		return fmt.Errorf("create a file %s: %w", param.Dest, err)
+	}
+	// f, err := os.Create(param.Dest)
+	// if err != nil {
+	// 	return fmt.Errorf("create a file %s: %w", param.Dest, err)
+	// }
+	defer f.Close()
+	// if err := os.Chmod(param.Dest, filePermission); err != nil {
+	// 	return fmt.Errorf("change a file permission %s: %w", param.Dest, err)
+	// }
+	if err := api.Unarchive(f, bytes.NewBuffer(body), param.OS == "windows"); err != nil {
+		return fmt.Errorf("downloand and unarchive aqua: %w", err)
 	}
 	return nil
 }

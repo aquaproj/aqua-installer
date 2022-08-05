@@ -15,7 +15,7 @@ var (
 	errTooBigTarBall         = errors.New("tarball is too big")
 )
 
-func unarchive(dest io.Writer, src io.Reader, isWindows bool) error {
+func Unarchive(dest io.Writer, src io.Reader, isWindows bool) error {
 	zr, err := gzip.NewReader(src)
 	if err != nil {
 		return fmt.Errorf("create a gzip reader: %w", err)

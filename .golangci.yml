@@ -19,3 +19,4 @@ linters:
   - exhaustive
   - exhaustruct
   - nosnakecase
+  - ifshort
