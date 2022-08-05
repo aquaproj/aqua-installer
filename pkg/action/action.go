@@ -8,7 +8,6 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	"runtime"
 	"strconv"
 	"strings"
 
@@ -18,6 +17,30 @@ import (
 )
 
 var errAquaVersionIsRequired = errors.New("aqua_version is required")
+
+const osWindows = "windows"
+
+func getGOOS() string {
+	switch os.Getenv("RUNNER_OS") {
+	case "Linux":
+		return "linux"
+	case "Windows":
+		return osWindows
+	case "macOS":
+		return "darwin"
+	}
+	return ""
+}
+
+func getGOARCH() string {
+	switch os.Getenv("RUNNER_ARCH") {
+	case "X86":
+		return "amd64"
+	case "ARM64":
+		return "arm64"
+	}
+	return ""
+}
 
 func Run(ldflags *api.LDFlags) error { //nolint:funlen,cyclop
 	ctx := context.Background()
@@ -46,13 +69,13 @@ func Run(ldflags *api.LDFlags) error { //nolint:funlen,cyclop
 	if param.OS == "" {
 		param.OS = os.Getenv("AQUA_GOOS")
 		if param.OS == "" {
-			param.OS = runtime.GOOS
+			param.OS = getGOOS()
 		}
 	}
 	if param.Arch == "" {
 		param.Arch = os.Getenv("AQUA_GOARCH")
 		if param.Arch == "" {
-			param.Arch = runtime.GOARCH
+			param.Arch = getGOARCH()
 		}
 	}
 
