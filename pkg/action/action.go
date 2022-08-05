@@ -21,7 +21,9 @@ var errAquaVersionIsRequired = errors.New("aqua_version is required")
 const osWindows = "windows"
 
 func getGOOS() string {
-	switch os.Getenv("RUNNER_OS") {
+	runnerOS := os.Getenv("RUNNER_OS")
+	fmt.Fprintln(os.Stderr, "[DEBUG] RUNNER_OS: ", runnerOS)
+	switch runnerOS {
 	case "Linux":
 		return "linux"
 	case "Windows":
@@ -33,7 +35,9 @@ func getGOOS() string {
 }
 
 func getGOARCH() string {
-	switch os.Getenv("RUNNER_ARCH") {
+	runnerArch := os.Getenv("RUNNER_ARCH")
+	fmt.Fprintln(os.Stderr, "[DEBUG] RUNNER_ARCH: ", runnerArch)
+	switch runnerArch {
 	case "X86":
 		return "amd64"
 	case "ARM64":
