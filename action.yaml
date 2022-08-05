@@ -2,7 +2,7 @@ name: Install aqua
 description: Install aqua https://aquaproj.github.io/ and install toos with aqua
 inputs:
   aqua_version:
-    description: installed aqua's version (e.g. v0.8.7)
+    description: installed aqua's version (e.g. v1.17.0)
     required: true
   install_path:
     description: aqua's install path
@@ -17,23 +17,5 @@ inputs:
     required: false
     default: ""
 runs:
-  using: composite
-  steps:
-    - run: |
-        echo "::error ::aqua_version is required. https://github.com/aquaproj/aqua-installer"
-        exit 1
-      shell: bash
-      if: inputs.aqua_version == ''
-
-    - run: echo "${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin" >> $GITHUB_PATH
-      shell: bash
-      working-directory: ${{ inputs.working_directory }}
-      if: inputs.enable_aqua_install == 'true'
-
-    - run: bash "${{github.action_path}}/action.sh"
-      working-directory: ${{ inputs.working_directory }}
-      shell: bash
-      env:
-        AQUA_INSTALL_PATH: ${{ inputs.install_path }}
-        AQUA_VERSION: ${{ inputs.aqua_version }}
-        AQUA_OPTS: ${{ inputs.aqua_opts }}
+  using: node16
+  main: dist/index.js

@@ -17,6 +17,15 @@ tasks:
   description: lint the go code
   usage: lint the go code
   script: golangci-lint run
+- name: build
+  short: b
+  description: Build action by GopherJS
+  usage: Build action by GopherJS
+  script: |
+    gopherjs build -o src/index.js ./cmd/action
+    npm run build
+  environment:
+    GOOS: js
 - name: release
   short: r
   description: release the new version
