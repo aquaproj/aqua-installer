@@ -107,17 +107,17 @@ func Run(ldflags *api.LDFlags) error { //nolint:funlen,cyclop
 		githubactions.SetEnv("PATH", filepath.Join(api.GetRootDir(), "bat"))
 	}
 
-	if err := aquaI(ctx, githubactions.GetInput("working_directory"), aquaOpts); err != nil {
+	if err := aquaI(ctx, param.Dest, githubactions.GetInput("working_directory"), aquaOpts); err != nil {
 		return fmt.Errorf("run aqua i: %w", err)
 	}
 
 	return nil
 }
 
-func aquaI(ctx context.Context, workingDir string, opts []string) error {
+func aquaI(ctx context.Context, exePath, workingDir string, opts []string) error {
 	fmt.Fprintln(os.Stderr, "+ aqua i "+strings.Join(opts, " "))
 	args := append([]string{"i"}, opts...)
-	cmd := exec.CommandContext(ctx, "aqua", args...)
+	cmd := exec.CommandContext(ctx, exePath, args...)
 	cmd.Dir = workingDir
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout
