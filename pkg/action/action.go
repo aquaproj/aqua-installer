@@ -53,7 +53,8 @@ func Run(ldflags *api.LDFlags) error { //nolint:funlen,cyclop
 		return errAquaVersionIsRequired
 	}
 	param := &api.Param{
-		Dest: githubactions.GetInput("install_path"),
+		Dest:        githubactions.GetInput("install_path"),
+		AquaVersion: aquaVersion,
 	}
 
 	enableAquaInstall, err := strconv.ParseBool(githubactions.GetInput("enable_aqua_install"))
