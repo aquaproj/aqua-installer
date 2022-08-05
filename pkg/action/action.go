@@ -38,7 +38,7 @@ func getGOARCH() string {
 	runnerArch := os.Getenv("RUNNER_ARCH")
 	fmt.Fprintln(os.Stderr, "[DEBUG] RUNNER_ARCH: ", runnerArch)
 	switch runnerArch {
-	case "X86":
+	case "X64":
 		return "amd64"
 	case "ARM64":
 		return "arm64"
