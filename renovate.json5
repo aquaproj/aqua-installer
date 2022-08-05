@@ -1,8 +1,8 @@
 {
   extends: [
     "config:base",
-    "github>aquaproj/aqua-renovate-config#1.2.1",
-    "github>aquaproj/aqua-renovate-config:installer-script#1.2.1(README\\.md)",
+    "github>aquaproj/aqua-renovate-config#1.2.2",
+    "github>aquaproj/aqua-renovate-config:installer-script#1.2.2(README\\.md)",
   ],
   automerge: true,
   major: {
