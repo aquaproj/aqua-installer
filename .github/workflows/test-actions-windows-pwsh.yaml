@@ -1,0 +1,38 @@
+---
+name: test-actions-windows-pwsh
+on:
+  push:
+    branches: [main]
+    tags: [v*]
+  pull_request:
+    branches: [main]
+jobs:
+  normal:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        with:
+          aqua_version: v1.18.0
+      - run: command -v aqua
+        shell: pwsh
+      - run: aqua -v
+        shell: pwsh
+      - run: actionlint -version
+        shell: pwsh
+        working-directory: tests
+  working_dir:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        with:
+          aqua_version: v1.18.0
+          working_directory: tests
+      - run: command -v aqua
+        shell: pwsh
+      - run: aqua -v
+        shell: pwsh
+      - run: github-comment -v
+        shell: pwsh
+        working-directory: tests
