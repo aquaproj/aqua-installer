@@ -45,5 +45,5 @@ jobs:
           aqua_version: v1.18.0
           install_path: bin/aqua.exe
           working_directory: tests
-      - run: tests/bin/aqua -v
+      - run: tests/bin/aqua.exe -v
         shell: bash
