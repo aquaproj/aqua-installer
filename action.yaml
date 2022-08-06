@@ -28,7 +28,14 @@ runs:
     - run: echo "${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin" >> $GITHUB_PATH
       shell: bash
       working-directory: ${{ inputs.working_directory }}
-      if: inputs.enable_aqua_install == 'true'
+      if: inputs.enable_aqua_install == 'true' && runner.os != 'Windows'
+
+    - run: |
+        echo "${AQUA_ROOT_DIR:-$HOME/AppData/Local/aquaproj-aqua}/bin" >> $GITHUB_PATH
+        echo "${AQUA_ROOT_DIR:-$HOME/AppData/Local/aquaproj-aqua}/bat" >> $GITHUB_PATH
+      shell: bash
+      working-directory: ${{ inputs.working_directory }}
+      if: inputs.enable_aqua_install == 'true' && runner.os == 'Windows'
 
     - run: bash "${{github.action_path}}/action.sh"
       working-directory: ${{ inputs.working_directory }}
