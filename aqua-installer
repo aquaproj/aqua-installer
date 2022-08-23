@@ -73,3 +73,4 @@ mv "$tempdir/aqua" "$install_path"
 rm -R "$tempdir"
 
 chmod a+x "$install_path"
+"$install_path" -v
