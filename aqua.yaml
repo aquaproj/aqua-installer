@@ -8,4 +8,4 @@ packages:
 - name: rhysd/actionlint@v1.6.21
 - name: reviewdog/reviewdog@v0.14.1
 - name: suzuki-shunsuke/cmdx@v1.6.1
-- name: golangci/golangci-lint@v1.50.0
+- name: golangci/golangci-lint@v1.50.1
