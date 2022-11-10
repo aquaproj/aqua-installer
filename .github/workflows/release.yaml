@@ -1,0 +1,34 @@
+---
+name: Release
+on:
+  push:
+    tags: ["*"]
+jobs:
+  default:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3.1.0
+      - name: Install Cosign
+        uses: aquaproj/aqua-installer@c553e04154f1f3b7e5eb35da058db3bb782bee8a # tag=v1.1.2
+        with:
+          aqua_version: v1.23.1
+      - name: Sign aqua-installer with Cosign
+        run: |
+          echo "$COSIGN_KEY" > cosign.key
+          cosign sign-blob \
+            --key cosign.key \
+            --output-signature aqua-installer.sig \
+            aqua-installer
+          rm cosign.key
+        env:
+          COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+          COSIGN_KEY: ${{ secrets.KEY }}
+      - name: Create a prerelease
+        uses: softprops/action-gh-release@v1
+        with:
+          draft: true
+          files: |
+            LICENSE
+            aqua-installer
+            aqua-installer.sig
