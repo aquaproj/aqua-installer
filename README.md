@@ -31,6 +31,28 @@ $ curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v1.1.2/aq
 
 If the version isn't specified, the latest version would be installed.
 
+### Verify the signature with Cosign
+
+From aqua-installer v1.1.3, [aqua-installer](aqua-installer) will support the verification with [Cosign](https://docs.sigstore.dev/cosign/overview).
+You have to install [Cosign](https://docs.sigstore.dev/cosign/installation).
+
+Please get the public key from [here](https://github.com/aquaproj/cosign-public-key/blob/main/cosign.pub).
+
+```sh
+curl -sSfL -O https://github.com/aquaproj/aqua-installer/releases/download/v1.1.3-2/aqua-installer
+cosign verify-blob \
+  --key https://raw.githubusercontent.com/aquaproj/cosign-public-key/6fd4e20fd16411091fd162810978a0e295089b85/cosign.pub \
+  --signature https://github.com/aquaproj/aqua-installer/releases/download/v1.1.3-2/aqua-installer.sig \
+  aqua-installer
+```
+
+After the verification, you can run `aqua-installer` safely.
+
+```sh
+chmod a+x aqua-installer
+./aqua-installer
+```
+
 ## Go
 
 ```console
