@@ -23,7 +23,7 @@ jobs:
           rm cosign.key
         env:
           COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
-          COSIGN_KEY: ${{ secrets.KEY }}
+          COSIGN_KEY: ${{ secrets.COSIGN_KEY }}
       - name: Create a prerelease
         uses: softprops/action-gh-release@v1
         with:
