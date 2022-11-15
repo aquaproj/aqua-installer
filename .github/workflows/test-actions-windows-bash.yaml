@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3.1.0
       - uses: ./
         with:
-          aqua_version: v1.23.1
+          aqua_version: v1.24.0
       - run: command -v aqua
         shell: bash
       - run: aqua -v
@@ -27,7 +27,7 @@ jobs:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3.1.0
       - uses: ./
         with:
-          aqua_version: v1.23.1
+          aqua_version: v1.24.0
           working_directory: tests
       - run: command -v aqua
         shell: bash
@@ -42,7 +42,7 @@ jobs:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3.1.0
       - uses: ./
         with:
-          aqua_version: v1.23.1
+          aqua_version: v1.24.0
           install_path: bin/aqua.exe
           working_directory: tests
       - run: tests/bin/aqua.exe -v
