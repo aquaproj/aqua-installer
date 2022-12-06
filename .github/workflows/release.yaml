@@ -3,6 +3,9 @@ name: Release
 on:
   push:
     tags: ["*"]
+permissions:
+  contents: write # required to create a release
+  id-token: write # required for cosign
 jobs:
   default:
     runs-on: ubuntu-latest
@@ -12,23 +15,20 @@ jobs:
       - name: Install Cosign
         uses: aquaproj/aqua-installer@c553e04154f1f3b7e5eb35da058db3bb782bee8a # tag=v1.1.2
         with:
-          aqua_version: v1.23.1
+          aqua_version: v1.25.0
       - name: Sign aqua-installer with Cosign
         run: |
-          echo "$COSIGN_KEY" > cosign.key
           cosign sign-blob \
-            --key cosign.key \
             --output-signature aqua-installer.sig \
+            --output-certificate aqua-installer.pem \
+            --oidc-provider github \
             aqua-installer
-          rm cosign.key
         env:
-          COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
-          COSIGN_KEY: ${{ secrets.COSIGN_KEY }}
-      - name: Create a prerelease
+          COSIGN_EXPERIMENTAL: "1"
+      - name: Create a draft release
         uses: softprops/action-gh-release@v1
         with:
           draft: true
           files: |
-            LICENSE
-            aqua-installer
             aqua-installer.sig
+            aqua-installer.pem
