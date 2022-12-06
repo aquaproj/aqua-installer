@@ -37,10 +37,10 @@ From aqua-installer v1.1.3, [aqua-installer](aqua-installer) will support the ve
 You have to install [Cosign](https://docs.sigstore.dev/cosign/installation).
 
 ```sh
-curl -sSfL -O https://github.com/aquaproj/aqua-installer/releases/download/v1.1.3-2/aqua-installer
+curl -sSfL -O https://github.com/aquaproj/aqua-installer/releases/download/v1.1.3-3/aqua-installer
 COSIGN_EXPERIMENTAL=1 cosign verify-blob \
-  --signature https://github.com/aquaproj/aqua-installer/releases/download/v1.1.3-2/aqua-installer.sig \
-  --certificate https://github.com/aquaproj/aqua-installer/releases/download/v1.1.3-2/aqua-installer.pem \
+  --signature https://github.com/aquaproj/aqua-installer/releases/download/v1.1.3-3/aqua-installer.sig \
+  --certificate https://github.com/aquaproj/aqua-installer/releases/download/v1.1.3-3/aqua-installer.pem \
   aqua-installer
 ```
 
