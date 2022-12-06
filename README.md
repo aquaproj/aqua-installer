@@ -36,13 +36,11 @@ If the version isn't specified, the latest version would be installed.
 From aqua-installer v1.1.3, [aqua-installer](aqua-installer) will support the verification with [Cosign](https://docs.sigstore.dev/cosign/overview).
 You have to install [Cosign](https://docs.sigstore.dev/cosign/installation).
 
-Please get the public key from [here](https://github.com/aquaproj/cosign-public-key/blob/main/cosign.pub).
-
 ```sh
 curl -sSfL -O https://github.com/aquaproj/aqua-installer/releases/download/v1.1.3-2/aqua-installer
-cosign verify-blob \
-  --key https://raw.githubusercontent.com/aquaproj/cosign-public-key/6fd4e20fd16411091fd162810978a0e295089b85/cosign.pub \
+COSIGN_EXPERIMENTAL=1 cosign verify-blob \
   --signature https://github.com/aquaproj/aqua-installer/releases/download/v1.1.3-2/aqua-installer.sig \
+  --certificate https://github.com/aquaproj/aqua-installer/releases/download/v1.1.3-2/aqua-installer.pem \
   aqua-installer
 ```
 
