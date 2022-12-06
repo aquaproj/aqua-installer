@@ -16,17 +16,21 @@ Install [aqua](https://github.com/aquaproj/aqua) quickly
 $ curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v1.1.2/aqua-installer | bash
 ```
 
+aqua-installer installs aqua to the following path.
+
+* linux, macOS: `${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua`
+* windows: `${AQUA_ROOT_DIR:-$HOME/AppData/Local/aquaproj-aqua}/bin/aqua`
+
+:warning: From aqua-installer v2, aqua-installer doesn't support specifying the install path.
+
 You can pass the following parameters.
 
 * `-v [aqua version]`: aqua version
-* `-i [aqua install path]`: aqua's install path
-  * default (linux, macOS): `${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua`
-  * default (windows): `${AQUA_ROOT_DIR:-$HOME/AppData/Local/aquaproj-aqua}/bin/aqua`
 
 e.g.
 
 ```console
-$ curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v1.1.2/aqua-installer | bash -s -- -v v1.25.0 -i bin/aqua
+$ curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v1.1.2/aqua-installer | bash -s -- -v v1.25.0
 ```
 
 If the version isn't specified, the latest version would be installed.
@@ -34,27 +38,7 @@ If the version isn't specified, the latest version would be installed.
 ## Go
 
 ```console
-$ go run github.com/aquaproj/aqua-installer@latest -help
-aqua-installer - Install aqua
-
-https://github.com/aquaproj/aqua-installer
-
-Usage:
-	$ aqua-installer [--aqua-version latest] [-o <install path>] [-os <OS>] [-arch <ARCH>]
-
-Options:
-	--help          show this help message
-	--version       show aqua-installer version
-	--aqua-version  aqua version. The default value is "latest"
-	-o              File Path where aqua is installed. The default value is ${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin
-	-os             OS (e.g. linux, darwin, windows). By default, Go's runtime.GOOS. You can change by the environment variable AQUA_GOOS
-	-arch           CPU Architecture (amd64 or arm64). By default, Go's runtime.GOARCH. You can change by the environment variable AQUA_GOARCH
-```
-
-e.g.
-
-```console
-$ go run github.com/aquaproj/aqua-installer@latest
+$ go run github.com/aquaproj/aqua@latest
 ```
 
 ## GitHub Actions
@@ -71,7 +55,6 @@ e.g.
 - uses: aquaproj/aqua-installer@v1.1.2
   with:
     aqua_version: v1.25.0
-    install_path: /tmp/bin/aqua
     working_directory: foo
     aqua_opts: ""
   env:
@@ -91,9 +74,10 @@ aqua_version | Installed aqua version
 
 #### Optional Inputs
 
+:warning: From aqua-installer v2, aqua-installer doesn't support specifying the install path.
+
 name | default | description
 --- | --- | ---
-install_path | `${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua` | aqua's install path
 enable_aqua_install | `"true"` | if this is `"false"`, executing `aqua i` and updating `GITHUB_PATH` are skipped
 aqua_opts | `-l` | `aqua i`'s option. If you want to specify global options, please use environment variables
 working_directory | `""` | working directory

@@ -50,7 +50,7 @@ done
 
 shift $((OPTIND - 1))
 
-bootstrap_version=v1.25.1-2
+bootstrap_version=v1.25.1-3
 filename=aqua_${OS}_${ARCH}.tar.gz
 URL=https://github.com/aquaproj/aqua/releases/download/$bootstrap_version/$filename
 
@@ -59,23 +59,25 @@ echo "===> Installing aqua $bootstrap_version for bootstraping..." >&2
 echo "===> Downloading $URL ..." >&2
 curl --fail -L "$URL" -o "$tempdir/$filename"
 
+cd "$tempdir"
 echo "===> Verifying checksum of aqua $bootstrap_version ..." >&2
-echo "03b11edde191ebc12a9b3dcf9d7bfd2bca7231c9e9114c3d23c12850e382712d  aqua_windows_amd64.tar.gz
-1dc24ea1c4ed77138526e7208872c6dd4e879b529a60dac1380a989735e89651  aqua_windows_arm64.tar.gz
-603cd4af0a45555ab0afa8c87aff52142635174a6254d33735bfac029e5c5c0e  aqua_darwin_amd64.tar.gz
-685e34eeeec335469a2e07866f736c3bb3b0464e27da83b1a98dbf44e2e711b8  aqua_linux_amd64.tar.gz
-7b5bc2ce9408a00e607b6dddc6d47d9efcc50b13a0757edbf0c41b3b927d4821  aqua_linux_arm64.tar.gz
-d3256a5cbb64ccc94b829ca799b391e5ef357ff811a490ec7ab1196effd453bc  aqua_darwin_arm64.tar.gz" | grep "$filename" | sha256sum -c
+echo "13e2fbc95e870412ff0eb7f5a9e56f8da23e6f0fc9924af9a1bca8b86afbbfb2  aqua_darwin_amd64.tar.gz
+3944835e6531b43751228c341be2a1a35e5c8086c397c28598e8d45a0e9710f3  aqua_darwin_arm64.tar.gz
+4f15d7d6f4a2196246f887aa9d9aadcab1c9881d23c5e51aebf7f91a577ceadf  aqua_linux_amd64.tar.gz
+5299d094b683e3b6f695138f25ecd385d5a341e5ea3a8b62b562788816f6a770  aqua_linux_arm64.tar.gz
+d0af298610ebabb038252a2bf45553a7957539cbb22406edd307a94d6cbaa3e4  aqua_windows_amd64.tar.gz
+ee24e894ae6b7a081e323cc4069742ed4aac4b4aa21acd086b062372af4dbbe2  aqua_windows_arm64.tar.gz" | grep "$filename" | sha256sum -c
 
-(cd "$tempdir"; tar xvzf "$filename" > /dev/null)
-chmod a+x "$tempdir/aqua"
+tar xvzf "$filename" > /dev/null
+chmod a+x aqua
 if [ -n "${version:-}" ]; then
 	echo "===> $tempdir/aqua update-aqua $version" >&2
-	"$tempdir/aqua" update-aqua "$version"
+	./aqua update-aqua "$version"
 else
 	echo "===> $tempdir/aqua update-aqua" >&2
-	"$tempdir/aqua" update-aqua
+	./aqua update-aqua
 fi
 
-rm -R "$tempdir"
 "$install_path" -v
+
+rm -R "$tempdir"
