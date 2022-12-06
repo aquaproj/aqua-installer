@@ -5,7 +5,7 @@
 set -eu
 
 usage_exit() {
-  echo "Usage: $0 [-v version] [-i install_path]" 1>&2
+  echo "Usage: $0 [-v version]" 1>&2
   exit 1
 }
 
@@ -38,12 +38,10 @@ if [ "$OS" = windows ]; then
   install_path=${AQUA_ROOT_DIR:-$HOME/AppData/Local/aquaproj-aqua}/bin/aqua.exe
 fi
 
-while getopts i:v: OPT
+while getopts v: OPT
 do
   case $OPT in
     v) version=$OPTARG
-      ;;
-    i) install_path=$OPTARG
       ;;
     \?) usage_exit
       ;;
@@ -52,25 +50,32 @@ done
 
 shift $((OPTIND - 1))
 
-mkdir -p "$(dirname "$install_path")"
-
-if [ -n "${version:-}" ]; then
-  URL=https://github.com/aquaproj/aqua/releases/download/${version}/aqua_${OS}_${ARCH}.tar.gz
-else
-  URL=https://github.com/aquaproj/aqua/releases/latest/download/aqua_${OS}_${ARCH}.tar.gz
-  version=latest
-fi
+bootstrap_version=v1.25.1-2
+filename=aqua_${OS}_${ARCH}.tar.gz
+URL=https://github.com/aquaproj/aqua/releases/download/$bootstrap_version/$filename
 
 tempdir=$(mktemp -d)
+echo "===> Installing aqua $bootstrap_version for bootstraping..." >&2
 echo "===> Downloading $URL ..." >&2
-curl --fail -L "$URL" -o "$tempdir/aqua_${OS}_${ARCH}.tar.gz"
+curl --fail -L "$URL" -o "$tempdir/$filename"
 
-(cd "$tempdir"; tar xvzf "aqua_${OS}_${ARCH}.tar.gz" > /dev/null)
-echo "===> Install aqua $version ($OS/$ARCH) to $install_path" >&2
+echo "===> Verifying checksum of aqua $bootstrap_version ..." >&2
+echo "03b11edde191ebc12a9b3dcf9d7bfd2bca7231c9e9114c3d23c12850e382712d  aqua_windows_amd64.tar.gz
+1dc24ea1c4ed77138526e7208872c6dd4e879b529a60dac1380a989735e89651  aqua_windows_arm64.tar.gz
+603cd4af0a45555ab0afa8c87aff52142635174a6254d33735bfac029e5c5c0e  aqua_darwin_amd64.tar.gz
+685e34eeeec335469a2e07866f736c3bb3b0464e27da83b1a98dbf44e2e711b8  aqua_linux_amd64.tar.gz
+7b5bc2ce9408a00e607b6dddc6d47d9efcc50b13a0757edbf0c41b3b927d4821  aqua_linux_arm64.tar.gz
+d3256a5cbb64ccc94b829ca799b391e5ef357ff811a490ec7ab1196effd453bc  aqua_darwin_arm64.tar.gz" | grep "$filename" | sha256sum -c
 
-mv "$tempdir/aqua" "$install_path"
+(cd "$tempdir"; tar xvzf "$filename" > /dev/null)
+chmod a+x "$tempdir/aqua"
+if [ -n "${version:-}" ]; then
+	echo "===> $tempdir/aqua update-aqua $version" >&2
+	"$tempdir/aqua" update-aqua "$version"
+else
+	echo "===> $tempdir/aqua update-aqua" >&2
+	"$tempdir/aqua" update-aqua
+fi
 
 rm -R "$tempdir"
-
-chmod a+x "$install_path"
 "$install_path" -v
