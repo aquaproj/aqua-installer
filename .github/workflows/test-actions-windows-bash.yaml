@@ -21,6 +21,11 @@ jobs:
       - run: actionlint -version
         shell: bash
         working-directory: tests
+
+      - run: command -v aqua
+      - run: aqua -v
+      - run: actionlint -version
+        working-directory: tests
   working_dir:
     runs-on: windows-latest
     steps:
@@ -35,6 +40,11 @@ jobs:
         shell: bash
       - run: github-comment -v
         shell: bash
+        working-directory: tests
+
+      - run: command -v aqua
+      - run: aqua -v
+      - run: github-comment -v
         working-directory: tests
   set-relative-path:
     runs-on: ubuntu-latest
