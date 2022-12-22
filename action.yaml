@@ -38,8 +38,8 @@ runs:
       if: inputs.enable_aqua_install == 'true' && runner.os == 'Windows'
 
     - run: |
-        echo "$HOME/AppData/Local/aquaproj-aqua/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-        echo "$HOME/AppData/Local/aquaproj-aqua/bat" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+        if($env:AQUA_ROOT_DIR) {echo $env:AQUA_ROOT_DIR} else {echo "$HOME/AppData/Local/aquaproj-aqua/bin"} | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+        if($env:AQUA_ROOT_DIR) {echo $env:AQUA_ROOT_DIR} else {echo "$HOME/AppData/Local/aquaproj-aqua/bat"} | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       shell: pwsh
       working-directory: ${{ inputs.working_directory }}
       if: inputs.enable_aqua_install == 'true' && runner.os == 'Windows'
