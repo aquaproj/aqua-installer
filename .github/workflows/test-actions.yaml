@@ -6,6 +6,8 @@ on:
     tags: [v*]
   pull_request:
     branches: [main]
+permissions:
+  contents: read
 jobs:
   default:
     runs-on: ubuntu-latest
