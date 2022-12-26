@@ -4,9 +4,6 @@ inputs:
   aqua_version:
     description: installed aqua's version (e.g. v0.8.7)
     required: true
-  install_path:
-    description: aqua's install path
-    required: false
   enable_aqua_install:
     required: false
     default: "true"
@@ -44,10 +41,15 @@ runs:
       working-directory: ${{ inputs.working_directory }}
       if: inputs.enable_aqua_install == 'true' && runner.os == 'Windows'
 
-    - run: bash "${{github.action_path}}/action.sh"
+    - run: |
+        "${{github.action_path}}/aqua-installer" -v "$AQUA_VERSION"
       working-directory: ${{ inputs.working_directory }}
       shell: bash
       env:
-        AQUA_INSTALL_PATH: ${{ inputs.install_path }}
         AQUA_VERSION: ${{ inputs.aqua_version }}
+
+    - run: aqua i $AQUA_OPTS
+      working-directory: ${{ inputs.working_directory }}
+      shell: bash
+      env:
         AQUA_OPTS: ${{ inputs.aqua_opts }}
