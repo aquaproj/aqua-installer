@@ -1,9 +1,6 @@
 ---
 name: test-actions-windows-bash
 on:
-  push:
-    branches: [main]
-    tags: [v*]
   pull_request:
     branches: [main]
 permissions:
