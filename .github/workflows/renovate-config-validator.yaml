@@ -12,6 +12,8 @@ on:
     paths:
     - .github/workflows/renovate-config-validator.yaml
     - renovate.json5
+permissions:
+  contents: read
 jobs:
   validate:
     runs-on: ubuntu-latest
