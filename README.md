@@ -13,7 +13,7 @@ Install [aqua](https://github.com/aquaproj/aqua) quickly
 ## Shell Script
 
 ```console
-$ curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v1.2.0/aqua-installer | bash
+$ curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v2.0.0/aqua-installer | bash
 ```
 
 aqua-installer installs aqua to the following path.
@@ -87,6 +87,10 @@ working_directory | `""` | working directory
 Please see [action.yaml](action.yaml) too.
 
 Nothing.
+
+## How to update
+
+https://aquaproj.github.io/docs/tutorial-extras/update-aqua
 
 ## License
 
