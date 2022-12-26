@@ -50,7 +50,7 @@ done
 
 shift $((OPTIND - 1))
 
-bootstrap_version=v1.25.1-9
+bootstrap_version=v1.26.1
 filename=aqua_${OS}_${ARCH}.tar.gz
 URL=https://github.com/aquaproj/aqua/releases/download/$bootstrap_version/$filename
 
@@ -61,12 +61,12 @@ curl --fail -L "$URL" -o "$tempdir/$filename"
 
 cd "$tempdir"
 echo "===> Verifying checksum of aqua $bootstrap_version ..." >&2
-echo "3931206c939e1dbf21a411cc2345f9288192829e5470cdbee0d40cba007719cc  aqua_windows_amd64.tar.gz
-5272e39426cbccf3d35ef48c76f1169445a6a8018c6cf90faa78405ff19ae704  aqua_linux_amd64.tar.gz
-9fb4337ef456608c998d91ffdf6bebb34a4cbf1e8d9e25e14fadc3805f659316  aqua_linux_arm64.tar.gz
-b04bf11ac834929c19a0d005c67bd5a0c2798fe87c5b518fd80033adac78ec1b  aqua_darwin_arm64.tar.gz
-f2159f32cc17716fb957347aa9632c7e0279841956235fa3c5a4782a41af2bf7  aqua_windows_arm64.tar.gz
-f362a8e47a2b8c2e5ba51ba539d059c4a842092f7af38735738f51ff03288fae  aqua_darwin_amd64.tar.gz" | grep "$filename" | sha256sum -c
+echo "115d9122cc8ee91972ee07d8d706f246f53e7b9728574d7089683195d6194dee  aqua_darwin_arm64.tar.gz
+2e16e6685afb80534b7b985c5ba4b3786a7e42c5682bb44489bb5ab96558e208  aqua_windows_amd64.tar.gz
+2f4ff2ea2f8250c7bcd0c19bed7590714fb3d90e256dbc54eb23bda51fcf8c1d  aqua_linux_arm64.tar.gz
+56973b1e62535282f9fa73a0b07bf356317e0946d37270702d79b79598441e35  aqua_windows_arm64.tar.gz
+95f24bc92f16073bfab623ba56033d7df67a9073b441fa21c1efc347ffe293d7  aqua_linux_amd64.tar.gz
+bfe78ad630923c78fce0ccfe30c5c04b9188196351605d60e6f4710a31e9e2ea  aqua_darwin_amd64.tar.gz" | grep "$filename" | sha256sum -c
 
 tar xvzf "$filename" > /dev/null
 chmod a+x aqua
