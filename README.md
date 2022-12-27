@@ -38,7 +38,7 @@ If the version isn't specified, the latest version would be installed.
 ## Go
 
 ```console
-$ go run github.com/aquaproj/aqua@latest
+$ go install github.com/aquaproj/aqua/cmd/aqua@latest
 ```
 
 ## GitHub Actions
