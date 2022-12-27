@@ -13,7 +13,7 @@ Install [aqua](https://github.com/aquaproj/aqua) quickly
 ## Shell Script
 
 ```console
-$ curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v2.0.1/aqua-installer | bash
+$ curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v2.0.2/aqua-installer | bash
 ```
 
 aqua-installer installs aqua to the following path.
@@ -30,7 +30,7 @@ You can pass the following parameters.
 e.g.
 
 ```console
-$ curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v2.0.1/aqua-installer | bash -s -- -v v1.26.2
+$ curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v2.0.2/aqua-installer | bash -s -- -v v1.26.2
 ```
 
 If the version isn't specified, the latest version would be installed.
@@ -46,13 +46,13 @@ $ go install github.com/aquaproj/aqua/cmd/aqua@latest
 e.g.
 
 ```yaml
-- uses: aquaproj/aqua-installer@v2.0.1
+- uses: aquaproj/aqua-installer@v2.0.2
   with:
     aqua_version: v1.26.2
 ```
 
 ```yaml
-- uses: aquaproj/aqua-installer@v2.0.1
+- uses: aquaproj/aqua-installer@v2.0.2
   with:
     aqua_version: v1.26.2
     working_directory: foo
