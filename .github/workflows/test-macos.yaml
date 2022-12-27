@@ -14,7 +14,11 @@ jobs:
         with:
           aqua_version: v1.26.2
           working_directory: tests
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
       - run: command -v aqua
       - run: aqua -v
       - run: github-comment -v
         working-directory: tests
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
