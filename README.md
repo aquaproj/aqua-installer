@@ -12,8 +12,20 @@ Install [aqua](https://github.com/aquaproj/aqua) quickly
 
 ## Shell Script
 
+You can install aqua by the following one liner.
+
 ```console
 $ curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v2.0.2/aqua-installer | bash
+```
+
+But the one liner is a bit dangerous because aqua-installer may be tampered.
+We recommend verifying aqua-installer's checksum before running it.
+
+```sh
+curl -sSfL -O https://raw.githubusercontent.com/aquaproj/aqua-installer/v2.0.2/aqua-installer
+echo "acbb573997d664fcb8df20a8a5140dba80a4fd21f3d9e606e478e435a8945208  aqua-installer" | sha256sum -c
+chmod +x aqua-installer
+./aqua-installer
 ```
 
 aqua-installer installs aqua to the following path.
