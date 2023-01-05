@@ -47,12 +47,6 @@ $ curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v2.0.2/aq
 
 If the version isn't specified, the latest version would be installed.
 
-## Go
-
-```console
-$ go install github.com/aquaproj/aqua/cmd/aqua@latest
-```
-
 ## GitHub Actions
 
 e.g.
