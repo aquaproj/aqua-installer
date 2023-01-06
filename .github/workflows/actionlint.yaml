@@ -9,8 +9,7 @@ on:
     branches: [main]
     paths:
     - .github/**
-permissions:
-  contents: read
+permissions: {}
 jobs:
   default:
     runs-on: ubuntu-latest
