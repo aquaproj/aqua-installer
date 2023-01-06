@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
       - uses: ./
         with:
-          aqua_version: v1.30.1
+          aqua_version: v1.30.2
       - run: command -v aqua
         shell: bash
       - run: aqua -v
@@ -37,7 +37,7 @@ jobs:
       - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
       - uses: ./
         with:
-          aqua_version: v1.30.1
+          aqua_version: v1.30.2
           working_directory: tests
 
       - run: command -v aqua
