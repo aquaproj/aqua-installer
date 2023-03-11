@@ -96,7 +96,11 @@ Nothing.
 
 ## How to update
 
-https://aquaproj.github.io/docs/tutorial-extras/update-aqua
+```console
+$ aqua update-aqua [<version>]
+```
+
+https://aquaproj.github.io/docs/usage#aqua-update-aqua
 
 ## License
 
