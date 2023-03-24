@@ -8,7 +8,7 @@ Install [aqua](https://aquaproj.github.io/) quickly.
 
 ## Document
 
-Pleaase see [document](https://aquaproj.github.io/docs/products/aqua-installer).
+Please see [document](https://aquaproj.github.io/docs/products/aqua-installer).
 
 ## License
 
