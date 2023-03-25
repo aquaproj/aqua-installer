@@ -3,24 +3,203 @@ name: test
 on:
   push:
     branches: [main]
-    tags: [v*]
-  pull_request:
-    branches: [main]
+  pull_request: {}
 permissions: {}
 jobs:
-  default:
+  path-filter:
+    # Get changed files to filter jobs
+    outputs:
+      update-aqua-checksums: ${{steps.changes.outputs.update-aqua-checksums}}
+      renovate-config-validator: ${{steps.changes.outputs.renovate-config-validator}}
+      ghalint: ${{steps.changes.outputs.ghalint}}
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read # To get pull requests of private repository
+    steps:
+      - uses: dorny/paths-filter@4512585405083f25c027a35db413c2b3b9006d50 # v2.11.1
+        id: changes
+        with:
+          filters: |
+            update-aqua-checksums:
+              - aqua.yaml
+              - aqua/*.yaml
+              - aqua-checksums.json
+            renovate-config-validator:
+              - renovate.json5
+            ghalint:
+              - .github/workflows/*.yaml
+              - aqua/ghalint.yaml
+
+  status-check:
+    # This job is used for main branch's branch protection rule's status check.
+    # If all dependent jobs succeed or are skipped this job succeeds.
+    runs-on: ubuntu-latest
+    needs:
+      - update-aqua-checksums
+      - renovate-config-validator
+      - ghalint
+      - test-script
+      - test-script-set-version
+      - test-action-linux
+      - test-action-macos
+      - test-action-windows-normal
+      - test-action-windows-working_dir
+    permissions: {}
+    if: |
+      ! failure() && ! cancelled() && github.event.pull_request.user.login == 'renovate[bot]' && contains(github.event.pull_request.body, ' **Automerge**: Enabled.')
+    steps:
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@021a2405c7f990db57f5eae5397423dcc554159c # v1
+        with:
+          app_id: ${{secrets.APP_ID}}
+          private_key: ${{secrets.APP_PRIVATE_KEY}}
+      - run: gh -R "$GITHUB_REPOSITORY" pr merge --merge --auto --delete-branch "$PR_NUMBER"
+        env:
+          GITHUB_TOKEN: ${{steps.generate_token.outputs.token}} # Use GitHub App to trigger GitHub Actions Workflow by merge commit.
+          PR_NUMBER: ${{github.event.pull_request.number}}
+
+  update-aqua-checksums:
+    # Update aqua-checksums.json and push a commit
+    needs: path-filter
+    if: needs.path-filter.outputs.update-aqua-checksums == 'true'
+    permissions:
+      contents: read # To checkout private repository
+    uses: aquaproj/update-checksum-workflow/.github/workflows/update-checksum.yaml@c766f4606e9aedc9c5c864f7ee28aed25284a3cf # v0.1.4
+    with:
+      aqua_policy_config: aqua-policy.yaml
+      aqua_version: v2.1.0
+      prune: true
+    secrets:
+      gh_app_id: ${{secrets.APP_ID}}
+      gh_app_private_key: ${{secrets.APP_PRIVATE_KEY}}
+
+  renovate-config-validator:
+    # Validate Renovate Configuration by renovate-config-validator.
+    uses: suzuki-shunsuke/renovate-config-validator-workflow/.github/workflows/validate.yaml@1a2fd7b15d99b1c434124b0bd2d8bd55b54ed869 # v0.2.0
+    needs: path-filter
+    if: needs.path-filter.outputs.renovate-config-validator == 'true'
+    permissions:
+      contents: read
+
+  ghalint:
+    # Validate GitHub Actions Workflows by ghalint.
+    needs: path-filter
+    if: needs.path-filter.outputs.ghalint == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+      - uses: aquaproj/aqua-installer@61e2563dfe7674cbf74fe6ec212e444198a3bb00 # v2.0.2
+        with:
+          aqua_version: v2.1.0
+        env:
+          AQUA_GITHUB_TOKEN: ${{github.token}}
+      - run: ghalint run
+        env:
+          GHALINT_LOG_COLOR: always
+
+  test-script:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
-    - run: cat aqua-installer | bash
-    - run: echo "${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin" >> "$GITHUB_PATH"
-    - run: command -v aqua
-    - run: aqua -v
-  set-version:
+      - uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+      - run: cat aqua-installer | bash
+      - run: echo "${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin" >> "$GITHUB_PATH"
+      - run: command -v aqua
+      - run: aqua -v
+
+  test-script-set-version:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
-    - run: cat aqua-installer | bash -s -- -v v0.1.0-9
-    - run: echo "${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin" >> "$GITHUB_PATH"
-    - run: command -v aqua
-    - run: aqua -v
+      - uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+      - run: cat aqua-installer | bash -s -- -v v2.0.0
+      - run: echo "${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin" >> "$GITHUB_PATH"
+      - run: command -v aqua
+      - run: aqua -v
+
+  test-action-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+      - uses: ./
+        with:
+          aqua_version: v2.1.0
+          working_directory: tests
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - run: command -v aqua
+      - run: aqua -v
+      - run: github-comment -v
+        working-directory: tests
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+  test-action-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+      - uses: ./
+        with:
+          aqua_version: v2.1.0
+          working_directory: tests
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - run: command -v aqua
+      - run: aqua -v
+      - run: github-comment -v
+        working-directory: tests
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+  test-action-windows-normal:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+      - uses: ./
+        with:
+          aqua_version: v2.1.0
+      - run: command -v aqua
+        shell: bash
+      - run: aqua -v
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - run: actionlint -version
+        shell: bash
+        working-directory: tests
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - run: command -v aqua
+      - run: aqua -v
+      - run: actionlint -version
+        working-directory: tests
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+  test-action-windows-working_dir:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+      - uses: ./
+        with:
+          aqua_version: v2.1.0
+          working_directory: tests
+
+      - run: command -v aqua
+        shell: bash
+      - run: aqua -v
+        shell: bash
+      - run: github-comment -v
+        shell: bash
+        working-directory: tests
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - run: command -v aqua
+      - run: aqua -v
+      - run: github-comment -v
+        working-directory: tests
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
