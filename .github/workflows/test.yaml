@@ -67,7 +67,6 @@ jobs:
       contents: read # To checkout private repository
     uses: aquaproj/update-checksum-workflow/.github/workflows/update-checksum.yaml@c766f4606e9aedc9c5c864f7ee28aed25284a3cf # v0.1.4
     with:
-      aqua_policy_config: aqua-policy.yaml
       aqua_version: v2.1.0
       prune: true
     secrets:
