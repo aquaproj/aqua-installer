@@ -10,6 +10,14 @@ inputs:
   aqua_opts:
     required: false
     default: "-l"
+  policy_allow:
+    required: false
+    description: |
+      aqua >= v2.3.0
+      If this isn't empty, "aqua policy allow" is run.
+      If this is "true", "aqua policy allow" is run without argument.
+      If this isn't empty and isn't "true", "aqua policy allow <inputs.policy_allow>" is run.
+
   working_directory:
     required: false
     default: ""
@@ -47,6 +55,19 @@ runs:
       shell: bash
       env:
         AQUA_VERSION: ${{ inputs.aqua_version }}
+
+    - run: aqua policy allow
+      working-directory: ${{ inputs.working_directory }}
+      if: inputs.policy_allow == 'true'
+      shell: bash
+
+    - run: aqua policy allow "$POLICY_FILE"
+      working-directory: ${{ inputs.working_directory }}
+      if: |
+        inputs.policy_allow != 'true' && inputs.policy_allow != ''
+      shell: bash
+      env:
+        POLICY_FILE: ${{ inputs.policy_allow }}
 
     - run: aqua i $AQUA_OPTS
       working-directory: ${{ inputs.working_directory }}
