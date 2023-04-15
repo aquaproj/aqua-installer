@@ -65,7 +65,7 @@ jobs:
       contents: read # To checkout private repository
     uses: aquaproj/update-checksum-workflow/.github/workflows/update-checksum.yaml@7a77a05ec15945a7360f871e7751547acfae4f41 # v0.1.6
     with:
-      aqua_version: v2.3.4
+      aqua_version: v2.3.5
       prune: true
     secrets:
       gh_app_id: ${{secrets.APP_ID}}
@@ -90,7 +90,7 @@ jobs:
       - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
       - uses: aquaproj/aqua-installer@294926f94b4233f202a2f03875c604f840cfed70 # v2.1.1
         with:
-          aqua_version: v2.3.4
+          aqua_version: v2.3.5
         env:
           AQUA_GITHUB_TOKEN: ${{github.token}}
       - run: ghalint run
@@ -121,7 +121,7 @@ jobs:
       - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
       - uses: ./
         with:
-          aqua_version: v2.3.4
+          aqua_version: v2.3.5
           working_directory: tests
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -138,7 +138,7 @@ jobs:
       - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
       - uses: ./
         with:
-          aqua_version: v2.3.4
+          aqua_version: v2.3.5
           working_directory: tests
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -155,7 +155,7 @@ jobs:
       - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
       - uses: ./
         with:
-          aqua_version: v2.3.4
+          aqua_version: v2.3.5
       - run: command -v aqua
         shell: bash
       - run: aqua -v
@@ -181,7 +181,7 @@ jobs:
       - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
       - uses: ./
         with:
-          aqua_version: v2.3.4
+          aqua_version: v2.3.5
           working_directory: tests
 
       - run: command -v aqua
