@@ -62,7 +62,7 @@ filename=aqua_${OS}_${ARCH}.tar.gz
 URL=https://github.com/aquaproj/aqua/releases/download/$bootstrap_version/$filename
 
 tempdir=$(mktemp -d)
-echo "===> Installing aqua $bootstrap_version for bootstraping..." >&2
+echo "===> Installing aqua $bootstrap_version for bootstrapping..." >&2
 echo "===> Downloading $URL ..." >&2
 curl --fail -L "$URL" -o "$tempdir/$filename"
 
