@@ -1,5 +1,5 @@
 name: Install aqua
-description: Install aqua https://aquaproj.github.io/ and install toos with aqua
+description: Install aqua https://aquaproj.github.io/ and install tools with aqua
 inputs:
   aqua_version:
     description: installed aqua's version (e.g. v0.8.7)
