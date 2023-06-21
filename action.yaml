@@ -50,6 +50,11 @@ runs:
       if: inputs.enable_aqua_install == 'true' && runner.os == 'Windows'
 
     - run: |
+        ls "${{github.action_path}}"
+      working-directory: ${{ inputs.working_directory }}
+      shell: bash
+
+    - run: |
         "${{github.action_path}}/aqua-installer" -v "$AQUA_VERSION"
       working-directory: ${{ inputs.working_directory }}
       shell: bash
