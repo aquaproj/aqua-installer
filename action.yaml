@@ -49,8 +49,82 @@ runs:
       working-directory: ${{ inputs.working_directory }}
       if: inputs.enable_aqua_install == 'true' && runner.os == 'Windows'
 
+    # Copy aqua-installer in action.
+    # https://github.com/aquaproj/aqua-installer/issues/461
+    # https://github.com/actions/runner/issues/2185
     - run: |
-        "${{github.action_path}}/aqua-installer" -v "$AQUA_VERSION"
+        set -eu
+        set -o pipefail
+
+        uname_os() {
+          local os
+          os=$(uname -s | tr '[:upper:]' '[:lower:]')
+          case "$os" in
+            cygwin_nt*) os="windows" ;;
+            mingw*) os="windows" ;;
+            msys_nt*) os="windows" ;;
+          esac
+          echo "$os"
+        }
+
+        uname_arch() {
+          local arch
+          arch=$(uname -m)
+          case $arch in
+            x86_64) arch="amd64" ;;
+            aarch64) arch="arm64" ;;
+          esac
+          echo ${arch}
+        }
+
+        OS="$(uname_os)"
+        ARCH="$(uname_arch)"
+
+        install_path=${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua
+        if [ "$OS" = windows ]; then
+          install_path=${AQUA_ROOT_DIR:-$HOME/AppData/Local/aquaproj-aqua}/bin/aqua.exe
+        fi
+
+        bootstrap_version=v2.9.0
+        checksums="092604196ad84e8dc41580c17651fcb8e6ba1adfd95a677538b52911d72c4462  aqua_darwin_arm64.tar.gz
+47144afbbd20d000dcc6b149e2cd5a5ad061e17b760be716e2188137d2103fe8  aqua_windows_arm64.tar.gz
+77400615132f827cccdcbde071b693bba99bc730c3d01b298dd1dab66a56d0f0  aqua_linux_amd64.tar.gz
+a8e5ad937c9e4c07fd7744d6b0de7455af3e85078daa7ec6b0eb7999cbcd2e1f  aqua_windows_amd64.tar.gz
+cd24d8c4463f001f281702d0684ecdbe4f2e8bacfe5c43426fb0e291ef692f17  aqua_linux_arm64.tar.gz
+ffc94168187970837c00409f0c94bd7fd363f34b7e88acf1724296931b609d35  aqua_darwin_amd64.tar.gz"
+
+        filename=aqua_${OS}_${ARCH}.tar.gz
+        URL=https://github.com/aquaproj/aqua/releases/download/$bootstrap_version/$filename
+
+        tempdir=$(mktemp -d)
+        echo "===> Installing aqua $bootstrap_version for bootstrapping..." >&2
+        echo "===> Downloading $URL ..." >&2
+        curl --fail -L "$URL" -o "$tempdir/$filename"
+
+        cd "$tempdir"
+
+        echo "===> Verifying checksum of aqua $bootstrap_version ..." >&2
+        if command -v sha256sum > /dev/null 2>&1; then
+          echo "$checksums" | grep "$filename" | sha256sum -c
+        elif command -v shasum > /dev/null 2>&1; then
+          echo "$checksums" | grep "$filename" | shasum -a 256 -c
+        else
+          echo "Skipped checksum verification of aqua $bootstrap_version, because both sha256sum and shasum aren't found" >&2
+        fi
+
+        tar xvzf "$filename" > /dev/null
+        chmod a+x aqua
+        if [ -n "${AQUA_VERSION:-}" ]; then
+          echo "===> $tempdir/aqua update-aqua $AQUA_VERSION" >&2
+          ./aqua update-aqua "$AQUA_VERSION"
+        else
+          echo "===> $tempdir/aqua update-aqua" >&2
+          ./aqua update-aqua
+        fi
+
+        "$install_path" -v
+
+        rm -R "$tempdir"
       working-directory: ${{ inputs.working_directory }}
       shell: bash
       env:
