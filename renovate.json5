@@ -2,8 +2,8 @@
   extends: [
     "config:base",
     "helpers:pinGitHubActionDigests",
-    "github>aquaproj/aqua-renovate-config#1.8.0",
-    "github>aquaproj/aqua-renovate-config:installer-script#1.8.0(README\\.md)",
+    "github>aquaproj/aqua-renovate-config#1.9.0",
+    "github>aquaproj/aqua-renovate-config:installer-script#1.9.0(README\\.md)",
   ],
   automerge: true,
   major: {
