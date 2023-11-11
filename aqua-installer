@@ -64,7 +64,14 @@ URL=https://github.com/aquaproj/aqua/releases/download/$bootstrap_version/$filen
 tempdir=$(mktemp -d)
 echo "[INFO] Installing aqua $bootstrap_version for bootstrapping..." >&2
 echo "[INFO] Downloading $URL ..." >&2
-curl --fail -L "$URL" -o "$tempdir/$filename"
+if command -v curl > /dev/null 2>&1; then
+	curl --fail -L "$URL" -o "$tempdir/$filename"
+elif command -v wget > /dev/null 2>&1; then
+	wget -P "$tempdir" "$URL"
+else
+	echo "[ERROR] Neither curl nor wget is found. Please install either curl or wget to download aqua" >&2
+	exit 1
+fi
 
 cd "$tempdir"
 
@@ -91,7 +98,9 @@ echo ""
 echo "==============================================================="
 echo "[INFO] aqua is installed into $install_path" >&2
 echo '[INFO] Please add the path to the environment variable "PATH"' >&2
-echo "[INFO] export PATH=$(dirname "$install_path"):\$PATH" >&2
+if command -v dirname > /dev/null 2>&1; then
+	echo "[INFO] export PATH=$(dirname "$install_path"):\$PATH" >&2
+fi
 echo "==============================================================="
 echo ""
 
