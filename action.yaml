@@ -54,7 +54,7 @@ runs:
     # https://github.com/actions/runner/issues/2185
     - run: |
         set -eu
-        set -o pipefail
+        set -o pipefail || :
 
         uname_os() {
           local os
@@ -99,7 +99,14 @@ runs:
         tempdir=$(mktemp -d)
         echo "[INFO] Installing aqua $bootstrap_version for bootstrapping..." >&2
         echo "[INFO] Downloading $URL ..." >&2
-        curl --fail -L "$URL" -o "$tempdir/$filename"
+        if command -v curl > /dev/null 2>&1; then
+        	curl --fail -L "$URL" -o "$tempdir/$filename"
+        elif command -v wget > /dev/null 2>&1; then
+        	wget -P "$tempdir" "$URL"
+        else
+        	echo "[ERROR] Neither curl nor wget is found. Please install either curl or wget to download aqua" >&2
+        	exit 1
+        fi
 
         cd "$tempdir"
 
