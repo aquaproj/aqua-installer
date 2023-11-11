@@ -88,11 +88,11 @@ else
 fi
 
 echo ""
-echo "==========================================="
+echo "==============================================================="
 echo "[INFO] aqua is installed into $install_path" >&2
 echo '[INFO] Please add the path to the environment variable "PATH"' >&2
 echo "[INFO] export PATH=$(dirname "$install_path"):\$PATH" >&2
-echo "==========================================="
+echo "==============================================================="
 echo ""
 
 "$install_path" -v
