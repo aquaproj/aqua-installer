@@ -97,28 +97,28 @@ runs:
         URL=https://github.com/aquaproj/aqua/releases/download/$bootstrap_version/$filename
 
         tempdir=$(mktemp -d)
-        echo "===> Installing aqua $bootstrap_version for bootstrapping..." >&2
-        echo "===> Downloading $URL ..." >&2
+        echo "[INFO] Installing aqua $bootstrap_version for bootstrapping..." >&2
+        echo "[INFO] Downloading $URL ..." >&2
         curl --fail -L "$URL" -o "$tempdir/$filename"
 
         cd "$tempdir"
 
-        echo "===> Verifying checksum of aqua $bootstrap_version ..." >&2
+        echo "[INFO] Verifying checksum of aqua $bootstrap_version ..." >&2
         if command -v sha256sum > /dev/null 2>&1; then
           echo "$checksums" | grep "$filename" | sha256sum -c
         elif command -v shasum > /dev/null 2>&1; then
           echo "$checksums" | grep "$filename" | shasum -a 256 -c
         else
-          echo "Skipped checksum verification of aqua $bootstrap_version, because both sha256sum and shasum aren't found" >&2
+          echo "[WARN] Skipped checksum verification of aqua $bootstrap_version, because both sha256sum and shasum aren't found" >&2
         fi
 
         tar xvzf "$filename" > /dev/null
         chmod a+x aqua
         if [ -n "${AQUA_VERSION:-}" ]; then
-          echo "===> $tempdir/aqua update-aqua $AQUA_VERSION" >&2
+          echo "[INFO] $tempdir/aqua update-aqua $AQUA_VERSION" >&2
           ./aqua update-aqua "$AQUA_VERSION"
         else
-          echo "===> $tempdir/aqua update-aqua" >&2
+          echo "[INFO] $tempdir/aqua update-aqua" >&2
           ./aqua update-aqua
         fi
 
