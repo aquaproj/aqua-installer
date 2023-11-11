@@ -27,7 +27,7 @@ uname_arch() {
     x86_64) arch="amd64" ;;
     aarch64) arch="arm64" ;;
   esac
-  echo ${arch}
+  echo "${arch}"
 }
 
 OS="$(uname_os)"
@@ -98,9 +98,13 @@ echo ""
 echo "==============================================================="
 echo "[INFO] aqua is installed into $install_path" >&2
 echo '[INFO] Please add the path to the environment variable "PATH"' >&2
-if command -v dirname > /dev/null 2>&1; then
-	echo "[INFO] export PATH=$(dirname "$install_path"):\$PATH" >&2
+# shellcheck disable=SC2016
+install_dir='${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin'
+if [ "$OS" = windows ]; then
+	# shellcheck disable=SC2016
+  install_dir='${AQUA_ROOT_DIR:-$HOME/AppData/Local/aquaproj-aqua}/bin'
 fi
+echo "[INFO] export PATH=$install_dir:\$PATH" >&2
 echo "==============================================================="
 echo ""
 
