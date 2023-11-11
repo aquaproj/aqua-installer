@@ -3,6 +3,7 @@
 # https://github.com/aquaproj/aqua-installer
 
 set -eu
+set -o pipefail || :
 
 usage_exit() {
   echo "Usage: $0 [-v version]" 1>&2
