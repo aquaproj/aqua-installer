@@ -1,6 +1,6 @@
 {
   extends: [
-    "config:base",
+    "config:recommended",
     "helpers:pinGitHubActionDigests",
     "github>aquaproj/aqua-renovate-config#1.13.0",
     "github>aquaproj/aqua-renovate-config:installer-script#1.13.0(README\\.md)",
