@@ -60,6 +60,9 @@ c890463c89c6349c9e6d675ce7b8d121070bd489f78f4b68e5cbf02e4355f240  aqua_windows_a
 b9d657a6d64ae70ddf03c296a4563526dd34d2f911cf1b62a0a708aebab11b41  aqua_windows_arm64.zip"
 
 filename=aqua_${OS}_${ARCH}.tar.gz
+if [ "$OS" = windows ]; then
+	filename=aqua_${OS}_${ARCH}.zip
+fi
 URL=https://github.com/aquaproj/aqua/releases/download/$bootstrap_version/$filename
 
 tempdir=$(mktemp -d)
