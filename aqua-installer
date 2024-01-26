@@ -51,15 +51,18 @@ done
 
 shift $((OPTIND - 1))
 
-bootstrap_version=v2.16.4
-checksums="34ad1e7f88e6fcc13f3bed2e7470ab570c4440aaa441e1b545cc514c571e9a2f  aqua_darwin_arm64.tar.gz
-468c6c51f37196e6c21a096498eb4d3f7ba5cea3593b44af89087f571c207bc9  aqua_windows_amd64.tar.gz
-6c2b6165000f3f2c5f04bbb52c8fe97b686cfbaa80493d866ad6770400b1773e  aqua_linux_arm64.tar.gz
-7457ea4870f953de17c68fe8f86b3243c14890aa94a05e713d3c22ef401968b2  aqua_linux_amd64.tar.gz
-c49f010e7e731ed62e7289169162001413f319cb593250a525aae26ee4551c3f  aqua_darwin_amd64.tar.gz
-dcbc4c160827187504994a8f2ec4b5b7944a05da48b011de7a6cade9becd14e5  aqua_windows_arm64.tar.gz"
+bootstrap_version=v2.22.0
+checksums="e66e19c3cb2da10ddeb8dfd5dc523d909e0fba87fa1337db017160fba3d90414  aqua_darwin_amd64.tar.gz
+493ab58b6b93bea2a9b9a144cac8aea90213f88b484d3de27352a2c5fb9b90e2  aqua_darwin_arm64.tar.gz
+b63d596a352d1c197c8e99342b2618a71f0ce4d6683a16578d0f2a8b2963212d  aqua_linux_amd64.tar.gz
+3b3632bfdf0527483c6219553acc4ca5b0cdceb7362f61ae4d1e2f7f77fbf6a6  aqua_linux_arm64.tar.gz
+c890463c89c6349c9e6d675ce7b8d121070bd489f78f4b68e5cbf02e4355f240  aqua_windows_amd64.zip
+b9d657a6d64ae70ddf03c296a4563526dd34d2f911cf1b62a0a708aebab11b41  aqua_windows_arm64.zip"
 
 filename=aqua_${OS}_${ARCH}.tar.gz
+if [ "$OS" = windows ]; then
+	filename=aqua_${OS}_${ARCH}.zip
+fi
 URL=https://github.com/aquaproj/aqua/releases/download/$bootstrap_version/$filename
 
 tempdir=$(mktemp -d)
@@ -85,7 +88,11 @@ else
 	echo "[WARN] Skipped checksum verification of aqua $bootstrap_version because both sha256sum and shasum commands aren't found" >&2
 fi
 
-tar xvzf "$filename" > /dev/null
+if [ "$OS" = windows ]; then
+	unzip "$filename" > /dev/null
+else
+	tar xvzf "$filename" > /dev/null
+fi
 chmod a+x aqua
 if [ -n "${version:-}" ]; then
 	echo "[INFO] $tempdir/aqua update-aqua $version" >&2
