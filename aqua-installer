@@ -88,7 +88,11 @@ else
 	echo "[WARN] Skipped checksum verification of aqua $bootstrap_version because both sha256sum and shasum commands aren't found" >&2
 fi
 
-tar xvzf "$filename" > /dev/null
+if [ "$OS" = windows ]; then
+	unzip "$filename" > /dev/null
+else
+	tar xvzf "$filename" > /dev/null
+fi
 chmod a+x aqua
 if [ -n "${version:-}" ]; then
 	echo "[INFO] $tempdir/aqua update-aqua $version" >&2
