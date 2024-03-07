@@ -65,13 +65,21 @@ if [ "$OS" = windows ]; then
 fi
 URL=https://github.com/aquaproj/aqua/releases/download/$bootstrap_version/$filename
 
+CURL_OPTS=()
+WGET_OPTS=()
+if [ -n "${AQUA_GITHUB_TOKEN}" ]; then
+  HEADER="Authorization: Bearer ${AQUA_GITHUB_TOKEN}"
+  CURL_OPTS+=("--header" "${HEADER}")
+  WGET_OPTS+=("--header" "${HEADER}")
+fi
+
 tempdir=$(mktemp -d)
 echo "[INFO] Installing aqua $bootstrap_version for bootstrapping..." >&2
 echo "[INFO] Downloading $URL ..." >&2
 if command -v curl > /dev/null 2>&1; then
-  curl --fail -L "$URL" -o "$tempdir/$filename"
+  curl --fail "${CURL_OPTS[@]}" -L "$URL" -o "$tempdir/$filename"
 elif command -v wget > /dev/null 2>&1; then
-  wget -P "$tempdir" "$URL"
+  wget "${WGET_OPTS[@]}" -P "$tempdir" "$URL"
 else
   echo "[ERROR] Neither curl nor wget is found. Please install either curl or wget to download aqua" >&2
   exit 1
