@@ -67,7 +67,7 @@ URL=https://github.com/aquaproj/aqua/releases/download/$bootstrap_version/$filen
 
 CURL_OPTS=()
 WGET_OPTS=()
-if [ -n "${AQUA_GITHUB_TOKEN}" ]; then
+if [ -n "${AQUA_GITHUB_TOKEN:-}" ]; then
   HEADER="Authorization: Bearer ${AQUA_GITHUB_TOKEN}"
   CURL_OPTS+=("--header" "${HEADER}")
   WGET_OPTS+=("--header" "${HEADER}")
