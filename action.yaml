@@ -56,11 +56,6 @@ runs:
         set -eu
         set -o pipefail || :
         
-        usage_exit() {
-        	echo "Usage: $0 [-v version]" 1>&2
-        	exit 1
-        }
-        
         uname_os() {
         	local os
         	os=$(uname -s | tr '[:upper:]' '[:lower:]')
@@ -89,18 +84,6 @@ runs:
         if [ "$OS" = windows ]; then
         	install_path=${AQUA_ROOT_DIR:-$HOME/AppData/Local/aquaproj-aqua}/bin/aqua.exe
         fi
-        
-        while getopts v: OPT
-        do
-        	case $OPT in
-        		v) version=$OPTARG
-        			;;
-        		\?) usage_exit
-        			;;
-        	esac
-        done
-        
-        shift $((OPTIND - 1))
         
         bootstrap_version=v2.22.0
         checksums="e66e19c3cb2da10ddeb8dfd5dc523d909e0fba87fa1337db017160fba3d90414	aqua_darwin_amd64.tar.gz
@@ -145,9 +128,9 @@ runs:
         	tar xvzf "$filename" > /dev/null
         fi
         chmod a+x aqua
-        if [ -n "${version:-}" ]; then
-        	echo "[INFO] $tempdir/aqua update-aqua $version" >&2
-        	./aqua update-aqua "$version"
+        if [ -n "${AQUA_VERSION:-}" ]; then
+        	echo "[INFO] $tempdir/aqua update-aqua $AQUA_VERSION" >&2
+        	./aqua update-aqua "$AQUA_VERSION"
         else
         	echo "[INFO] $tempdir/aqua update-aqua" >&2
         	./aqua update-aqua

@@ -42,7 +42,7 @@ fi
 while getopts v: OPT
 do
 	case $OPT in
-		v) version=$OPTARG
+		v) AQUA_VERSION=$OPTARG
 			;;
 		\?) usage_exit
 			;;
@@ -94,9 +94,9 @@ else
 	tar xvzf "$filename" > /dev/null
 fi
 chmod a+x aqua
-if [ -n "${version:-}" ]; then
-	echo "[INFO] $tempdir/aqua update-aqua $version" >&2
-	./aqua update-aqua "$version"
+if [ -n "${AQUA_VERSION:-}" ]; then
+	echo "[INFO] $tempdir/aqua update-aqua $AQUA_VERSION" >&2
+	./aqua update-aqua "$AQUA_VERSION"
 else
 	echo "[INFO] $tempdir/aqua update-aqua" >&2
 	./aqua update-aqua
