@@ -30,6 +30,12 @@ runs:
       shell: bash
       if: inputs.aqua_version == ''
 
+    # TODO remove this step. https://github.com/aquaproj/aqua/issues/1665
+    - run: |
+        echo "AQUA_DISABLE_COSIGN=true" >> "$GITHUB_ENV"
+        echo "AQUA_DISABLE_SLSA=true" >> "$GITHUB_ENV"
+      shell: bash
+
     - run: echo "${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin" >> $GITHUB_PATH
       shell: bash
       working-directory: ${{ inputs.working_directory }}
@@ -143,8 +149,6 @@ runs:
       shell: bash
       env:
         AQUA_VERSION: ${{ inputs.aqua_version }}
-        AQUA_DISABLE_COSIGN: "true" # TODO remove this line. https://github.com/aquaproj/aqua/issues/1665
-        AQUA_DISABLE_SLSA: "true" # TODO remove this line. https://github.com/aquaproj/aqua/issues/1665
 
     - run: aqua policy allow
       working-directory: ${{ inputs.working_directory }}
@@ -164,5 +168,3 @@ runs:
       shell: bash
       env:
         AQUA_OPTS: ${{ inputs.aqua_opts }}
-        AQUA_DISABLE_COSIGN: "true" # TODO remove this line. https://github.com/aquaproj/aqua/issues/1665
-        AQUA_DISABLE_SLSA: "true" # TODO remove this line. https://github.com/aquaproj/aqua/issues/1665
