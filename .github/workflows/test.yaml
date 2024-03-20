@@ -3,6 +3,9 @@ name: test
 on:
   pull_request: {}
 permissions: {}
+env:
+  AQUA_DISABLE_COSIGN: "true"
+  AQUA_DISABLE_SLSA: "true"
 jobs:
   path-filter:
     # Get changed files to filter jobs
@@ -52,6 +55,13 @@ jobs:
         with:
           app_id: ${{secrets.APP_ID}}
           private_key: ${{secrets.APP_PRIVATE_KEY}}
+          repositories: >-
+            ["${{github.event.repository.name}}"]
+          permissions: >-
+            {
+              "contents": "write",
+              "pull_requests": "write"
+            }
       - run: gh -R "$GITHUB_REPOSITORY" pr merge --squash --auto --delete-branch "$PR_NUMBER"
         env:
           GITHUB_TOKEN: ${{steps.generate_token.outputs.token}} # Use GitHub App to trigger GitHub Actions Workflow by merge commit.
@@ -65,7 +75,7 @@ jobs:
       contents: read # To checkout private repository
     uses: aquaproj/update-checksum-workflow/.github/workflows/update-checksum.yaml@3598c506108a2e0e9e31a0c6ef9c202c77049420 # v0.1.9
     with:
-      aqua_version: v2.23.2
+      aqua_version: v2.25.0
       prune: true
     secrets:
       gh_app_id: ${{secrets.APP_ID}}
@@ -90,7 +100,7 @@ jobs:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - uses: aquaproj/aqua-installer@7c7338067bdb97d5bea2acc82b5870afca470d18 # v2.3.0
         with:
-          aqua_version: v2.23.2
+          aqua_version: v2.25.0
         env:
           AQUA_GITHUB_TOKEN: ${{github.token}}
       - run: ghalint run
@@ -121,7 +131,7 @@ jobs:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - uses: ./
         with:
-          aqua_version: v2.23.2
+          aqua_version: v2.25.0
           working_directory: tests
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -135,12 +145,12 @@ jobs:
   test-action-container:
     runs-on: ubuntu-latest
     container:
-      image: golang:1.22.0
+      image: golang:1.22.1
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - uses: ./
         with:
-          aqua_version: v2.23.2
+          aqua_version: v2.25.0
           working_directory: tests
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -157,7 +167,7 @@ jobs:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - uses: ./
         with:
-          aqua_version: v2.23.2
+          aqua_version: v2.25.0
           working_directory: tests
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -174,7 +184,7 @@ jobs:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - uses: ./
         with:
-          aqua_version: v2.23.2
+          aqua_version: v2.25.0
       - run: command -v aqua
         shell: bash
       - run: aqua -v
@@ -200,7 +210,7 @@ jobs:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - uses: ./
         with:
-          aqua_version: v2.23.2
+          aqua_version: v2.25.0
           working_directory: tests
 
       - run: command -v aqua

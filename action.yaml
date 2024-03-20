@@ -57,24 +57,24 @@ runs:
         set -o pipefail || :
 
         uname_os() {
-          local os
-          os=$(uname -s | tr '[:upper:]' '[:lower:]')
-          case "$os" in
-            cygwin_nt*) os="windows" ;;
-            mingw*) os="windows" ;;
-            msys_nt*) os="windows" ;;
-          esac
-          echo "$os"
+        	local os
+        	os=$(uname -s | tr '[:upper:]' '[:lower:]')
+        	case "$os" in
+        		cygwin_nt*) os="windows" ;;
+        		mingw*) os="windows" ;;
+        		msys_nt*) os="windows" ;;
+        	esac
+        	echo "$os"
         }
 
         uname_arch() {
-          local arch
-          arch=$(uname -m)
-          case $arch in
-            x86_64) arch="amd64" ;;
-            aarch64) arch="arm64" ;;
-          esac
-          echo ${arch}
+        	local arch
+        	arch=$(uname -m)
+        	case $arch in
+        		x86_64) arch="amd64" ;;
+        		aarch64) arch="arm64" ;;
+        	esac
+        	echo "${arch}"
         }
 
         OS="$(uname_os)"
@@ -82,7 +82,7 @@ runs:
 
         install_path=${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua
         if [ "$OS" = windows ]; then
-          install_path=${AQUA_ROOT_DIR:-$HOME/AppData/Local/aquaproj-aqua}/bin/aqua.exe
+        	install_path=${AQUA_ROOT_DIR:-$HOME/AppData/Local/aquaproj-aqua}/bin/aqua.exe
         fi
 
         bootstrap_version=v2.22.0
@@ -115,11 +115,11 @@ runs:
 
         echo "[INFO] Verifying checksum of aqua $bootstrap_version ..." >&2
         if command -v sha256sum > /dev/null 2>&1; then
-          echo "$checksums" | grep "$filename" | sha256sum -c
+        	echo "$checksums" | grep "$filename" | sha256sum -c
         elif command -v shasum > /dev/null 2>&1; then
-          echo "$checksums" | grep "$filename" | shasum -a 256 -c
+        	echo "$checksums" | grep "$filename" | shasum -a 256 -c
         else
-          echo "[WARN] Skipped checksum verification of aqua $bootstrap_version, because both sha256sum and shasum aren't found" >&2
+        	echo "[WARN] Skipped checksum verification of aqua $bootstrap_version because both sha256sum and shasum commands aren't found" >&2
         fi
 
         if [ "$OS" = windows ]; then
@@ -129,11 +129,11 @@ runs:
         fi
         chmod a+x aqua
         if [ -n "${AQUA_VERSION:-}" ]; then
-          echo "[INFO] $tempdir/aqua update-aqua $AQUA_VERSION" >&2
-          ./aqua update-aqua "$AQUA_VERSION"
+        	echo "[INFO] $tempdir/aqua update-aqua $AQUA_VERSION" >&2
+        	./aqua update-aqua "$AQUA_VERSION"
         else
-          echo "[INFO] $tempdir/aqua update-aqua" >&2
-          ./aqua update-aqua
+        	echo "[INFO] $tempdir/aqua update-aqua" >&2
+        	./aqua update-aqua
         fi
 
         "$install_path" -v
@@ -143,6 +143,8 @@ runs:
       shell: bash
       env:
         AQUA_VERSION: ${{ inputs.aqua_version }}
+        AQUA_DISABLE_COSIGN: "true" # TODO remove this line. https://github.com/aquaproj/aqua/issues/1665
+        AQUA_DISABLE_SLSA: "true" # TODO remove this line. https://github.com/aquaproj/aqua/issues/1665
 
     - run: aqua policy allow
       working-directory: ${{ inputs.working_directory }}
@@ -162,3 +164,5 @@ runs:
       shell: bash
       env:
         AQUA_OPTS: ${{ inputs.aqua_opts }}
+        AQUA_DISABLE_COSIGN: "true" # TODO remove this line. https://github.com/aquaproj/aqua/issues/1665
+        AQUA_DISABLE_SLSA: "true" # TODO remove this line. https://github.com/aquaproj/aqua/issues/1665

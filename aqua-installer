@@ -6,29 +6,29 @@ set -eu
 set -o pipefail || :
 
 usage_exit() {
-  echo "Usage: $0 [-v version]" 1>&2
-  exit 1
+	echo "Usage: $0 [-v version]" 1>&2
+	exit 1
 }
 
 uname_os() {
-  local os
-  os=$(uname -s | tr '[:upper:]' '[:lower:]')
-  case "$os" in
-    cygwin_nt*) os="windows" ;;
-    mingw*) os="windows" ;;
-    msys_nt*) os="windows" ;;
-  esac
-  echo "$os"
+	local os
+	os=$(uname -s | tr '[:upper:]' '[:lower:]')
+	case "$os" in
+		cygwin_nt*) os="windows" ;;
+		mingw*) os="windows" ;;
+		msys_nt*) os="windows" ;;
+	esac
+	echo "$os"
 }
 
 uname_arch() {
-  local arch
-  arch=$(uname -m)
-  case $arch in
-    x86_64) arch="amd64" ;;
-    aarch64) arch="arm64" ;;
-  esac
-  echo "${arch}"
+	local arch
+	arch=$(uname -m)
+	case $arch in
+		x86_64) arch="amd64" ;;
+		aarch64) arch="arm64" ;;
+	esac
+	echo "${arch}"
 }
 
 OS="$(uname_os)"
@@ -36,20 +36,23 @@ ARCH="$(uname_arch)"
 
 install_path=${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua
 if [ "$OS" = windows ]; then
-  install_path=${AQUA_ROOT_DIR:-$HOME/AppData/Local/aquaproj-aqua}/bin/aqua.exe
+	install_path=${AQUA_ROOT_DIR:-$HOME/AppData/Local/aquaproj-aqua}/bin/aqua.exe
 fi
 
 while getopts v: OPT
 do
-  case $OPT in
-    v) version=$OPTARG
-      ;;
-    \?) usage_exit
-      ;;
-  esac
+	case $OPT in
+		v) AQUA_VERSION=$OPTARG
+			;;
+		\?) usage_exit
+			;;
+	esac
 done
 
 shift $((OPTIND - 1))
+
+export AQUA_DISABLE_COSIGN=true
+export AQUA_DISABLE_SLSA=true
 
 bootstrap_version=v2.22.0
 checksums="e66e19c3cb2da10ddeb8dfd5dc523d909e0fba87fa1337db017160fba3d90414  aqua_darwin_amd64.tar.gz
@@ -81,9 +84,9 @@ cd "$tempdir"
 
 echo "[INFO] Verifying checksum of aqua $bootstrap_version ..." >&2
 if command -v sha256sum > /dev/null 2>&1; then
-  echo "$checksums" | grep "$filename" | sha256sum -c
+	echo "$checksums" | grep "$filename" | sha256sum -c
 elif command -v shasum > /dev/null 2>&1; then
-  echo "$checksums" | grep "$filename" | shasum -a 256 -c
+	echo "$checksums" | grep "$filename" | shasum -a 256 -c
 else
 	echo "[WARN] Skipped checksum verification of aqua $bootstrap_version because both sha256sum and shasum commands aren't found" >&2
 fi
@@ -94,9 +97,9 @@ else
 	tar xvzf "$filename" > /dev/null
 fi
 chmod a+x aqua
-if [ -n "${version:-}" ]; then
-	echo "[INFO] $tempdir/aqua update-aqua $version" >&2
-	./aqua update-aqua "$version"
+if [ -n "${AQUA_VERSION:-}" ]; then
+	echo "[INFO] $tempdir/aqua update-aqua $AQUA_VERSION" >&2
+	./aqua update-aqua "$AQUA_VERSION"
 else
 	echo "[INFO] $tempdir/aqua update-aqua" >&2
 	./aqua update-aqua
@@ -110,7 +113,7 @@ echo '[INFO] Please add the path to the environment variable "PATH"' >&2
 install_dir='${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin'
 if [ "$OS" = windows ]; then
 	# shellcheck disable=SC2016
-  install_dir='${AQUA_ROOT_DIR:-$HOME/AppData/Local/aquaproj-aqua}/bin'
+	install_dir='${AQUA_ROOT_DIR:-$HOME/AppData/Local/aquaproj-aqua}/bin'
 fi
 echo "[INFO] export PATH=$install_dir:\$PATH" >&2
 echo "==============================================================="
