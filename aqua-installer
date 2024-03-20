@@ -51,6 +51,9 @@ done
 
 shift $((OPTIND - 1))
 
+export AQUA_DISABLE_COSIGN=true
+export AQUA_DISABLE_SLSA=true
+
 bootstrap_version=v2.22.0
 checksums="e66e19c3cb2da10ddeb8dfd5dc523d909e0fba87fa1337db017160fba3d90414  aqua_darwin_amd64.tar.gz
 493ab58b6b93bea2a9b9a144cac8aea90213f88b484d3de27352a2c5fb9b90e2  aqua_darwin_arm64.tar.gz
