@@ -143,6 +143,8 @@ runs:
       shell: bash
       env:
         AQUA_VERSION: ${{ inputs.aqua_version }}
+        AQUA_DISABLE_COSIGN: "true" # TODO remove this line. https://github.com/aquaproj/aqua/issues/1665
+        AQUA_DISABLE_SLSA: "true" # TODO remove this line. https://github.com/aquaproj/aqua/issues/1665
 
     - run: aqua policy allow
       working-directory: ${{ inputs.working_directory }}
@@ -162,3 +164,5 @@ runs:
       shell: bash
       env:
         AQUA_OPTS: ${{ inputs.aqua_opts }}
+        AQUA_DISABLE_COSIGN: "true" # TODO remove this line. https://github.com/aquaproj/aqua/issues/1665
+        AQUA_DISABLE_SLSA: "true" # TODO remove this line. https://github.com/aquaproj/aqua/issues/1665
