@@ -70,7 +70,7 @@ jobs:
     if: needs.path-filter.outputs.update-aqua-checksums == 'true'
     permissions:
       contents: read # To checkout private repository
-    uses: aquaproj/update-checksum-workflow/.github/workflows/update-checksum.yaml@6b620c8ceb97e4ae8f256ea24056edc4d2524bd3 # v0.1.10
+    uses: aquaproj/update-checksum-workflow/.github/workflows/update-checksum.yaml@f367004e7f17e99d30297cd9e89afad30ee1f251 # v1.0.0
     with:
       aqua_version: v2.25.1
       prune: true
