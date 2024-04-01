@@ -72,7 +72,7 @@ jobs:
       contents: read # To checkout private repository
     uses: aquaproj/update-checksum-workflow/.github/workflows/update-checksum.yaml@f367004e7f17e99d30297cd9e89afad30ee1f251 # v1.0.0
     with:
-      aqua_version: v2.25.1
+      aqua_version: v2.25.2
       prune: true
     secrets:
       gh_app_id: ${{secrets.APP_ID}}
@@ -97,7 +97,7 @@ jobs:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - uses: aquaproj/aqua-installer@4551ec64e21bf0f557c2525135ff0bd2cba40ec7 # v3.0.0
         with:
-          aqua_version: v2.25.1
+          aqua_version: v2.25.2
         env:
           AQUA_GITHUB_TOKEN: ${{github.token}}
       - run: ghalint run
@@ -128,7 +128,7 @@ jobs:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - uses: ./
         with:
-          aqua_version: v2.25.1
+          aqua_version: v2.25.2
           working_directory: tests
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -147,7 +147,7 @@ jobs:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - uses: ./
         with:
-          aqua_version: v2.25.1
+          aqua_version: v2.25.2
           working_directory: tests
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -164,7 +164,7 @@ jobs:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - uses: ./
         with:
-          aqua_version: v2.25.1
+          aqua_version: v2.25.2
           working_directory: tests
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -181,7 +181,7 @@ jobs:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - uses: ./
         with:
-          aqua_version: v2.25.1
+          aqua_version: v2.25.2
       - run: command -v aqua
         shell: bash
       - run: aqua -v
@@ -207,7 +207,7 @@ jobs:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - uses: ./
         with:
-          aqua_version: v2.25.1
+          aqua_version: v2.25.2
           working_directory: tests
 
       - run: command -v aqua
