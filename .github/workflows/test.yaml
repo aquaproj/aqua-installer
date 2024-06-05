@@ -142,7 +142,7 @@ jobs:
   test-action-container:
     runs-on: ubuntu-latest
     container:
-      image: golang:1.22.3
+      image: golang:1.22.4
     steps:
       - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
       - uses: ./
