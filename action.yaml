@@ -2,14 +2,16 @@ name: Install aqua
 description: Install aqua https://aquaproj.github.io/ and install tools with aqua
 inputs:
   aqua_version:
-    description: installed aqua's version (e.g. v0.8.7)
+    description: Installed aqua's version (e.g. v0.8.7)
     required: true
   enable_aqua_install:
     required: false
     default: "true"
+    description: Whether "aqua i" command is run.
   aqua_opts:
     required: false
     default: "-l"
+    description: Command line options for "aqua i"
   policy_allow:
     required: false
     description: |
@@ -21,6 +23,7 @@ inputs:
   working_directory:
     required: false
     default: ""
+    description: The working directory to run aqua commands
 runs:
   using: composite
   steps:
@@ -33,21 +36,21 @@ runs:
     - run: echo "${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin" >> $GITHUB_PATH
       shell: bash
       working-directory: ${{ inputs.working_directory }}
-      if: inputs.enable_aqua_install == 'true' && runner.os != 'Windows'
+      if: runner.os != 'Windows'
 
     - run: |
         echo "${AQUA_ROOT_DIR:-$HOME/AppData/Local/aquaproj-aqua}/bin" >> $GITHUB_PATH
         echo "${AQUA_ROOT_DIR:-$HOME/AppData/Local/aquaproj-aqua}/bat" >> $GITHUB_PATH
       shell: bash
       working-directory: ${{ inputs.working_directory }}
-      if: inputs.enable_aqua_install == 'true' && runner.os == 'Windows'
+      if: runner.os == 'Windows'
 
     - run: |
         $(if($env:AQUA_ROOT_DIR) {echo $env:AQUA_ROOT_DIR} else {echo "$HOME/AppData/Local/aquaproj-aqua/bin"}) | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
         $(if($env:AQUA_ROOT_DIR) {echo $env:AQUA_ROOT_DIR} else {echo "$HOME/AppData/Local/aquaproj-aqua/bat"}) | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       shell: pwsh
       working-directory: ${{ inputs.working_directory }}
-      if: inputs.enable_aqua_install == 'true' && runner.os == 'Windows'
+      if: runner.os == 'Windows'
 
     - run: |
         "${GITHUB_ACTION_PATH}/aqua-installer" -v "$AQUA_VERSION"
@@ -70,6 +73,7 @@ runs:
         POLICY_FILE: ${{ inputs.policy_allow }}
 
     - run: aqua i $AQUA_OPTS
+      if: inputs.enable_aqua_install == 'true'
       working-directory: ${{ inputs.working_directory }}
       shell: bash
       env:
