@@ -57,7 +57,7 @@ runs:
 
     - run: |
         if [ "${SKIP_INSTALL_AQUA:-}" = true ] && command -v aqua >/dev/null; then
-          echo "::notice:: installing aqua is skipped" >&2
+          echo "[INFO] Installing aqua is skipped" >&2
           exit 0
         fi
         "${GITHUB_ACTION_PATH}/aqua-installer" -v "$AQUA_VERSION"
