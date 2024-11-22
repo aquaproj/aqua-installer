@@ -146,14 +146,14 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
       - uses: ./
         with:
-          aqua_version: v2.37.0
+          aqua_version: v2.38.0
           working_directory: tests
         env:
           GITHUB_TOKEN: ${{ github.token }}
       - run: aqua -v
       - uses: ./
         with:
-          aqua_version: v2.36.0
+          aqua_version: v2.38.0
           working_directory: tests
           skip_install_aqua: "true"
         env:
