@@ -164,7 +164,7 @@ jobs:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     container:
-      image: golang:1.23.3
+      image: golang:1.23.4
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - uses: ./
