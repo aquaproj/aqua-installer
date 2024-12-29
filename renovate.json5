@@ -1,16 +1,13 @@
 {
   extends: [
-    "config:recommended",
-    "helpers:pinGitHubActionDigests",
+    "github>suzuki-shunsuke/renovate-config#3.0.0",
+    "github>suzuki-shunsuke/renovate-config:nolimit#3.0.0",
     "github>aquaproj/aqua-renovate-config#2.6.0",
     "github>aquaproj/aqua-renovate-config:installer-script#2.6.0(README\\.md)",
   ],
-  automerge: true,
-  major: {
-    automerge: false,
-  },
-  regexManagers: [
+  customManagers: [
     {
+      customType: "regex",
       fileMatch: ["README.md"],
       depNameTemplate: "aquaproj/aqua-installer",
       datasourceTemplate: "github-releases",
@@ -19,6 +16,7 @@
       ],
     },
     {
+      customType: "regex",
       fileMatch: ["README.md"],
       depNameTemplate: "aquaproj/aqua",
       datasourceTemplate: "github-releases",
