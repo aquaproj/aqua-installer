@@ -6,7 +6,7 @@ registries:
 - type: standard
   ref: v4.44.3 # renovate: depName=aquaproj/aqua-registry
 packages:
-- name: rhysd/actionlint@v1.7.5
+- name: rhysd/actionlint@v1.7.6
 - name: reviewdog/reviewdog@v0.20.3
 - name: suzuki-shunsuke/cmdx@v1.7.7
 - name: golangci/golangci-lint@v1.63.4
