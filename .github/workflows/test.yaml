@@ -74,7 +74,7 @@ jobs:
       contents: read # To checkout private repository
     uses: aquaproj/update-checksum-workflow/.github/workflows/update-checksum.yaml@8bce60cc4475128360bc32f00707abb874ca4a91 # v1.0.3
     with:
-      aqua_version: v2.42.1
+      aqua_version: v2.42.2
       prune: true
     secrets:
       gh_app_id: ${{secrets.APP_ID}}
@@ -102,7 +102,7 @@ jobs:
           persist-credentials: false
       - uses: aquaproj/aqua-installer@f13c5d2f0357708d85477aabe50fd3f725528745 # v3.1.0
         with:
-          aqua_version: v2.42.1
+          aqua_version: v2.42.2
         env:
           AQUA_GITHUB_TOKEN: ${{github.token}}
       - run: ghalint run
@@ -142,7 +142,7 @@ jobs:
           persist-credentials: false
       - uses: ./
         with:
-          aqua_version: v2.42.1
+          aqua_version: v2.42.2
           working_directory: tests
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -154,14 +154,14 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
       - uses: ./
         with:
-          aqua_version: v2.42.1
+          aqua_version: v2.42.2
           working_directory: tests
         env:
           GITHUB_TOKEN: ${{ github.token }}
       - run: aqua -v
       - uses: ./
         with:
-          aqua_version: v2.42.1
+          aqua_version: v2.42.2
           working_directory: tests
           skip_install_aqua: "true"
         env:
@@ -179,7 +179,7 @@ jobs:
           persist-credentials: false
       - uses: ./
         with:
-          aqua_version: v2.42.1
+          aqua_version: v2.42.2
           working_directory: tests
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -199,7 +199,7 @@ jobs:
           persist-credentials: false
       - uses: ./
         with:
-          aqua_version: v2.42.1
+          aqua_version: v2.42.2
           working_directory: tests
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -219,7 +219,7 @@ jobs:
           persist-credentials: false
       - uses: ./
         with:
-          aqua_version: v2.42.1
+          aqua_version: v2.42.2
       - run: command -v aqua
         shell: bash
       - run: aqua -v
@@ -248,7 +248,7 @@ jobs:
           persist-credentials: false
       - uses: ./
         with:
-          aqua_version: v2.42.1
+          aqua_version: v2.42.2
           working_directory: tests
 
       - run: command -v aqua
