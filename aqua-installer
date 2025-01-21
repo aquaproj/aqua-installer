@@ -81,7 +81,7 @@ cd "$tempdir"
 
 echo "[INFO] Verifying checksum of aqua $bootstrap_version ..." >&2
 if command -v sha256sum > /dev/null 2>&1; then
-	echo "$checksums" | grep "$filename" | sha256sum -c
+	echo "$checksums" | grep "$filename" | sha256sum -c -
 elif command -v shasum > /dev/null 2>&1; then
 	echo "$checksums" | grep "$filename" | shasum -a 256 -c
 else
