@@ -3,7 +3,7 @@
     "github>suzuki-shunsuke/renovate-config#3.0.0",
     "github>suzuki-shunsuke/renovate-config:nolimit#3.0.0",
     "github>aquaproj/aqua-renovate-config#2.6.0",
-    "github>aquaproj/aqua-renovate-config:installer-script#2.6.0(README\\.md)",
+    "github>aquaproj/aqua-renovate-config:installer-script#2.7.0(README\\.md)",
   ],
   customManagers: [
     {
