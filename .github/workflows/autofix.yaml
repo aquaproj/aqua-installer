@@ -11,6 +11,7 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: false
+          ref: ${{ github.head_ref }}
       - uses: ./
         with:
           aqua_version: v2.48.2-0
