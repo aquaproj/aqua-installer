@@ -30,6 +30,9 @@ jobs:
     if: needs.path-filter.outputs.renovate-config-validator == 'true'
     permissions:
       contents: read
+    with:
+      # https://github.com/renovatebot/renovate/discussions/35787#discussioncomment-13068531
+      node-version: 22.13.1
 
   ghalint:
     # Validate GitHub Actions Workflows by ghalint.
