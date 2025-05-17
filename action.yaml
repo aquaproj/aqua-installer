@@ -4,6 +4,10 @@ inputs:
   aqua_version:
     description: Installed aqua's version (e.g. v0.8.7)
     required: true
+  github_token:
+    description: GitHub access token
+    required: false
+    default: ${{ github.token }}
   enable_aqua_install:
     required: false
     default: "true"
@@ -66,6 +70,7 @@ runs:
       env:
         AQUA_VERSION: ${{ inputs.aqua_version }}
         SKIP_INSTALL_AQUA: ${{ inputs.skip_install_aqua }}
+        GITHUB_TOKEN: ${{ inputs.github_token }}
 
     - run: aqua policy allow
       working-directory: ${{ inputs.working_directory }}
@@ -86,3 +91,4 @@ runs:
       shell: bash
       env:
         AQUA_OPTS: ${{ inputs.aqua_opts }}
+        GITHUB_TOKEN: ${{ inputs.github_token }}
