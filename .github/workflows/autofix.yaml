@@ -14,7 +14,7 @@ jobs:
           ref: ${{ github.head_ref }}
       - uses: ./
         with:
-          aqua_version: v2.53.0
+          aqua_version: v2.53.1
         env:
           GITHUB_TOKEN: ${{github.token}}
       - run: aqua upc -prune
