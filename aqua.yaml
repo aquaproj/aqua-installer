@@ -11,4 +11,4 @@ packages:
 - name: suzuki-shunsuke/cmdx@v2.0.1
 - name: golangci/golangci-lint@v2.1.6
 - name: int128/ghcp@v1.13.5
-- name: suzuki-shunsuke/ghalint@v1.4.1
+- name: suzuki-shunsuke/ghalint@v1.5.1
