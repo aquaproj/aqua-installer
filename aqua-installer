@@ -69,7 +69,7 @@ tempdir=$(mktemp -d)
 echo "[INFO] Installing aqua $bootstrap_version for bootstrapping..." >&2
 echo "[INFO] Downloading $URL ..." >&2
 if command -v curl > /dev/null 2>&1; then
-	curl --fail -L "$URL" -o "$tempdir/$filename"
+	curl --retry 5 --fail -L "$URL" -o "$tempdir/$filename"
 elif command -v wget > /dev/null 2>&1; then
 	wget -P "$tempdir" "$URL"
 else
