@@ -9,6 +9,6 @@ packages:
 - name: rhysd/actionlint@v1.7.7
 - name: reviewdog/reviewdog@v0.20.3
 - name: suzuki-shunsuke/cmdx@v2.0.2
-- name: golangci/golangci-lint@v2.2.2
+- name: golangci/golangci-lint@v2.3.0
 - name: int128/ghcp@v1.15.0
 - name: suzuki-shunsuke/ghalint@v1.5.3
