@@ -118,7 +118,7 @@ jobs:
     timeout-minutes: 20
     runs-on: ubuntu-latest
     container:
-      image: mirror.gcr.io/golang:1.25.1@sha256:0802d0e17ff58ee90d2dc9cd5da4f502b3d4d12677096ad73fd9a505f222781b
+      image: mirror.gcr.io/golang:1.25.2@sha256:1c91b4f4391774a73d6489576878ad3ff3161ebc8c78466ec26e83474855bfcf
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
