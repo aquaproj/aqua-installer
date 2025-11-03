@@ -67,9 +67,6 @@ jobs:
       - run: echo "${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin" >> "$GITHUB_PATH"
       - run: command -v aqua
       - run: aqua -v
-      - run: ghalint -v
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
 
   test-script-set-version:
     timeout-minutes: 20
