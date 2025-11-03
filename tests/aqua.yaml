@@ -3,7 +3,7 @@
 # https://aquaproj.github.io/
 registries:
 - type: standard
-  ref: v0.12.2 # renovate: depName=aquaproj/aqua-registry
+  ref: v4.432.0 # renovate: depName=aquaproj/aqua-registry
 
 packages:
-- name: suzuki-shunsuke/github-comment@v4.1.0
+- name: suzuki-shunsuke/ghalint@v4.1.0
