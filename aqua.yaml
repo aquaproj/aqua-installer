@@ -2,8 +2,11 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/aquaproj/aqua/v2.55.1/json-schema/aqua-yaml.json
 # aqua - Declarative CLI Version Manager
 # https://aquaproj.github.io/
+checksum:
+  enabled: true
+  require_checksum: true
 registries:
-- type: standard
-  ref: v4.44.3 # renovate: depName=aquaproj/aqua-registry
+  - type: standard
+    ref: v4.432.0 # renovate: depName=aquaproj/aqua-registry
 packages:
-- name: suzuki-shunsuke/ghalint@v1.5.3
+  - name: suzuki-shunsuke/ghalint@v1.5.3
