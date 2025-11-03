@@ -51,13 +51,13 @@ done
 
 shift $((OPTIND - 1))
 
-bootstrap_version=v2.53.10
-checksums="fb75c6b255ae9e7a5d0a2329b6c0f35b60eb4d95c1f838367ca8245ce2fb3c2b  aqua_darwin_amd64.tar.gz
-c3b9a6fe53b6f6b4b5ea7305d78565485f83fcdfe104fbd4926d5dd30ad94276  aqua_darwin_arm64.tar.gz
-5ff77fa8635ea16818bcc2098f8aaaf7099d6260ca13471adacebe031e4c7b06  aqua_linux_amd64.tar.gz
-62b8ea87be0b61c449596fbec3fc0410fc8bcb8e263ec34a497b9258f9d253b5  aqua_linux_arm64.tar.gz
-69397f22ed6dbf748390e50e902d8c7711855b9e88cbdc83ebce6a72f6c8c5c8  aqua_windows_amd64.zip
-f65e6c85f18799eb2487a6bf33c06a6ad34418e9c6f2808a74e40b7ca35c3916  aqua_windows_arm64.zip"
+bootstrap_version=v2.55.1
+checksums="814bd2ba3b1db409e89eae126ad280413e4edfefe91f598ce173c3b21ba56ca8  aqua_darwin_amd64.tar.gz
+cdaa13dd96187622ef5bee52867c46d4cf10765963423dc8e867c7c4decccf4d  aqua_darwin_arm64.tar.gz
+7371b9785e07c429608a21e4d5b17dafe6780dabe306ec9f4be842ea754de48a  aqua_linux_amd64.tar.gz
+283e0e274af47ff1d4d660a19e8084ae4b6aca23d901e95728a68a63dfb98c87  aqua_linux_arm64.tar.gz
+3efa0eaecd4f252f9dcf0d3b723e77894657977dc91939aac7697380a3f476a1  aqua_windows_amd64.zip
+faf478d4db6e873ed85365e6864af31bf831317a1736b4ca7f3cf561e3a463ec  aqua_windows_arm64.zip"
 
 filename=aqua_${OS}_${ARCH}.tar.gz
 if [ "$OS" = windows ]; then
