@@ -1,0 +1,8 @@
+.gitattributes export-ignore
+.github/ export-ignore
+.gitignore export-ignore
+aqua-checksums.json export-ignore
+aqua.yaml export-ignore
+CONTRIBUTING.md export-ignore
+renovate.json5 export-ignore
+tests/ export-ignore
