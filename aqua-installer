@@ -68,10 +68,26 @@ URL=https://github.com/aquaproj/aqua/releases/download/$bootstrap_version/$filen
 tempdir=$(mktemp -d)
 echo "[INFO] Installing aqua $bootstrap_version for bootstrapping..." >&2
 echo "[INFO] Downloading $URL ..." >&2
+
+# Prepare authentication header if GITHUB_TOKEN is available
+auth_header=""
+if [ -n "$GITHUB_TOKEN" ]; then
+	echo "[INFO] Using GitHub authentication" >&2
+	auth_header="Authorization: Bearer $GITHUB_TOKEN"
+fi
+
 if command -v curl > /dev/null 2>&1; then
-	curl --retry 5 --fail -L "$URL" -o "$tempdir/$filename"
+	if [ -n "$auth_header" ]; then
+		curl --retry 5 --fail -L -H "$auth_header" "$URL" -o "$tempdir/$filename"
+	else
+		curl --retry 5 --fail -L "$URL" -o "$tempdir/$filename"
+	fi
 elif command -v wget > /dev/null 2>&1; then
-	wget -P "$tempdir" "$URL"
+	if [ -n "$auth_header" ]; then
+		wget --header="$auth_header" -P "$tempdir" "$URL"
+	else
+		wget -P "$tempdir" "$URL"
+	fi
 else
 	echo "[ERROR] Neither curl nor wget is found. Please install either curl or wget to download aqua" >&2
 	exit 1
