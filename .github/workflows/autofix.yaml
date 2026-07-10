@@ -13,7 +13,7 @@ jobs:
           persist-credentials: false
       - uses: ./
         with:
-          aqua_version: v2.60.1
+          aqua_version: v2.60.2
         env:
           GITHUB_TOKEN: ${{github.token}}
       - run: aqua upc -prune
