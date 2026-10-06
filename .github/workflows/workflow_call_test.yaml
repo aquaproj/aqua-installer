@@ -45,7 +45,7 @@ jobs:
           persist-credentials: false
       - uses: ./
         with:
-          aqua_version: v2.63.0
+          aqua_version: v2.64.0
         env:
           AQUA_GITHUB_TOKEN: ${{github.token}}
       - run: ghalint run
@@ -86,7 +86,7 @@ jobs:
           persist-credentials: false
       - uses: ./
         with:
-          aqua_version: v2.63.0
+          aqua_version: v2.64.0
           working_directory: tests
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -107,7 +107,7 @@ jobs:
           persist-credentials: false
       - uses: ./
         with:
-          aqua_version: v2.63.0
+          aqua_version: v2.64.0
           working_directory: tests
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -126,7 +126,7 @@ jobs:
           persist-credentials: false
       - uses: ./
         with:
-          aqua_version: v2.63.0
+          aqua_version: v2.64.0
           working_directory: tests
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -145,7 +145,7 @@ jobs:
           persist-credentials: false
       - uses: ./
         with:
-          aqua_version: v2.63.0
+          aqua_version: v2.64.0
       - run: command -v aqua
         shell: bash
       - run: aqua -v
@@ -167,7 +167,7 @@ jobs:
           persist-credentials: false
       - uses: ./
         with:
-          aqua_version: v2.63.0
+          aqua_version: v2.64.0
           working_directory: tests
 
       - run: command -v aqua
