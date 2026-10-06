@@ -101,7 +101,7 @@ jobs:
           persist-credentials: false
       - uses: ./
         with:
-          aqua_version: v2.63.0
+          aqua_version: v2.64.0
           packages: |
             # comment 1
 
@@ -109,7 +109,14 @@ jobs:
             suzuki-shunsuke/pinact
       - run: tfcmt -v
       - run: pinact -v
-      - run: ghalint -v
+      - name: ghalint must not be installed
+        run: |
+          if ghalint -v; then
+            echo "::error ::ghalint should not be installed" >&2
+            exit 1
+          fi
+        env:
+          AQUA_DISABLE_LAZY_INSTALL: "true"
 
   test-action-container:
     timeout-minutes: 20
