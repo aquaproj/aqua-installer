@@ -103,7 +103,9 @@ jobs:
         with:
           aqua_version: v2.63.0
           packages: |
-            tfcmt
+            # comment 1
+
+            tfcmt # comment 2
             suzuki-shunsuke/pinact
       - run: tfcmt -v
       - run: pinact -v
