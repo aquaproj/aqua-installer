@@ -15,7 +15,16 @@ inputs:
   aqua_opts:
     required: false
     default: "-l"
-    description: Command line options for "aqua i"
+    description: |
+      Command line options for "aqua i".
+      If packages is set and this is the default value "-l", this is ignored,
+      because "-l" skips installing the packages.
+  packages:
+    required: false
+    description: |
+      Command or package names to be installed. aqua v2.64.0 or later is required.
+      Names are separated by whitespace or newlines.
+      Empty lines and text after "#" are ignored.
   policy_allow:
     required: false
     description: |
@@ -85,10 +94,21 @@ runs:
       env:
         POLICY_FILE: ${{ inputs.policy_allow }}
 
-    - run: aqua i $AQUA_OPTS
+    - run: |
+        set -f
+        pkgs=()
+        while IFS= read -r line; do
+          line=${line%%#*}
+          pkgs+=($line)
+        done <<< "$PKGS"
+        if [ "${#pkgs[@]}" -gt 0 ] && [ "$OPTS" = "-l" ]; then
+          OPTS=""
+        fi
+        aqua i $OPTS -- "${pkgs[@]}"
       if: inputs.enable_aqua_install == 'true'
       working-directory: ${{ inputs.working_directory }}
       shell: bash
       env:
-        AQUA_OPTS: ${{ inputs.aqua_opts }}
+        OPTS: ${{ inputs.aqua_opts }}
+        PKGS: ${{ inputs.packages }}
         GITHUB_TOKEN: ${{ inputs.github_token }}

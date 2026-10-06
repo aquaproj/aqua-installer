@@ -7,6 +7,8 @@ checksum:
   require_checksum: true
 registries:
   - type: standard
-    ref: v4.432.0 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.572.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   - name: suzuki-shunsuke/ghalint@v1.5.6
+  - name: suzuki-shunsuke/tfcmt@v4.14.19
+  - name: suzuki-shunsuke/pinact@v5.0.0

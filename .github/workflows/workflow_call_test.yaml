@@ -46,8 +46,6 @@ jobs:
       - uses: ./
         with:
           aqua_version: v2.64.0
-        env:
-          AQUA_GITHUB_TOKEN: ${{github.token}}
       - run: ghalint run
         env:
           GHALINT_LOG_COLOR: always
@@ -88,13 +86,37 @@ jobs:
         with:
           aqua_version: v2.64.0
           working_directory: tests
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
       - run: command -v aqua
       - run: aqua -v
       - run: ghalint -v
         env:
           GITHUB_TOKEN: ${{ github.token }}
+
+  test-action-linux-packages:
+    timeout-minutes: 20
+    runs-on: ubuntu-26.04
+    env:
+      AQUA_DISABLE_LAZY_INSTALL: "true"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ./
+        with:
+          aqua_version: v2.64.0
+          packages: |
+            # comment 1
+
+            tfcmt # comment 2
+            suzuki-shunsuke/pinact
+      - run: tfcmt -v
+      - run: pinact -v
+      - name: ghalint must not be installed
+        run: |
+          if ghalint -v; then
+            echo "::error ::ghalint should not be installed" >&2
+            exit 1
+          fi
 
   test-action-container:
     timeout-minutes: 20
