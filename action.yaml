@@ -15,7 +15,10 @@ inputs:
   aqua_opts:
     required: false
     default: "-l"
-    description: Command line options for "aqua i"
+    description: |
+      Command line options for "aqua i".
+      If packages is set and this is the default value "-l", this is ignored,
+      because "-l" skips installing the packages.
   packages:
     required: false
     description: |
@@ -98,6 +101,9 @@ runs:
           line=${line%%#*}
           pkgs+=($line)
         done <<< "$PKGS"
+        if [ "${#pkgs[@]}" -gt 0 ] && [ "$OPTS" = "-l" ]; then
+          OPTS=""
+        fi
         aqua i $OPTS -- "${pkgs[@]}"
       if: inputs.enable_aqua_install == 'true'
       working-directory: ${{ inputs.working_directory }}
