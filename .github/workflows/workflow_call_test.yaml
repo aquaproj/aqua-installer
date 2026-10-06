@@ -59,6 +59,8 @@ jobs:
         with:
           persist-credentials: false
       - run: ./aqua-installer
+        env:
+          AQUA_GITHUB_TOKEN: ${{github.token}}
       - run: echo "${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin" >> "$GITHUB_PATH"
       - run: command -v aqua
       - run: aqua -v
@@ -71,6 +73,8 @@ jobs:
         with:
           persist-credentials: false
       - run: bash -s -- -v v2.50.0 < aqua-installer
+        env:
+          AQUA_GITHUB_TOKEN: ${{github.token}}
       - run: echo "${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin" >> "$GITHUB_PATH"
       - run: command -v aqua
       - run: aqua -v
@@ -131,13 +135,11 @@ jobs:
         with:
           aqua_version: v2.64.0
           working_directory: tests
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
       - run: command -v aqua
       - run: aqua -v
       - run: ghalint -v
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          AQUA_GITHUB_TOKEN: ${{ github.token }}
 
   test-action-macos:
     timeout-minutes: 20
@@ -156,7 +158,7 @@ jobs:
       - run: aqua -v
       - run: ghalint -v
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          AQUA_GITHUB_TOKEN: ${{ github.token }}
 
   test-action-windows-normal:
     timeout-minutes: 20
@@ -178,7 +180,7 @@ jobs:
         shell: bash
         working-directory: tests
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          AQUA_GITHUB_TOKEN: ${{ github.token }}
 
   test-action-windows-working_dir:
     timeout-minutes: 20
@@ -198,4 +200,4 @@ jobs:
         shell: bash
       - run: ghalint -v
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          AQUA_GITHUB_TOKEN: ${{ github.token }}
