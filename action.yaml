@@ -18,7 +18,10 @@ inputs:
     description: Command line options for "aqua i"
   packages:
     required: false
-    description: command or package names to be installed. aqua v2.64.0 or later is required.
+    description: |
+      Command or package names to be installed. aqua v2.64.0 or later is required.
+      Names are separated by whitespace or newlines.
+      Empty lines and text after "#" are ignored.
   policy_allow:
     required: false
     description: |
@@ -90,7 +93,12 @@ runs:
 
     - run: |
         set -f
-        aqua i $OPTS -- $PKGS
+        pkgs=()
+        while IFS= read -r line; do
+          line=${line%%#*}
+          pkgs+=($line)
+        done <<< "$PKGS"
+        aqua i $OPTS -- "${pkgs[@]}"
       if: inputs.enable_aqua_install == 'true'
       working-directory: ${{ inputs.working_directory }}
       shell: bash
