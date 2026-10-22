@@ -45,7 +45,7 @@ jobs:
           persist-credentials: false
       - uses: ./
         with:
-          aqua_version: v2.64.0
+          aqua_version: v2.65.1
       - run: ghalint run
         env:
           GHALINT_LOG_COLOR: always
@@ -88,7 +88,7 @@ jobs:
           persist-credentials: false
       - uses: ./
         with:
-          aqua_version: v2.64.0
+          aqua_version: v2.65.1
           working_directory: tests
       - run: command -v aqua
       - run: aqua -v
@@ -107,7 +107,7 @@ jobs:
           persist-credentials: false
       - uses: ./
         with:
-          aqua_version: v2.64.0
+          aqua_version: v2.65.1
           packages: |
             # comment 1
 
@@ -133,7 +133,7 @@ jobs:
           persist-credentials: false
       - uses: ./
         with:
-          aqua_version: v2.64.0
+          aqua_version: v2.65.1
           working_directory: tests
       - run: command -v aqua
       - run: aqua -v
@@ -150,7 +150,7 @@ jobs:
           persist-credentials: false
       - uses: ./
         with:
-          aqua_version: v2.64.0
+          aqua_version: v2.65.1
           working_directory: tests
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -169,7 +169,7 @@ jobs:
           persist-credentials: false
       - uses: ./
         with:
-          aqua_version: v2.64.0
+          aqua_version: v2.65.1
       - run: command -v aqua
         shell: bash
       - run: aqua -v
@@ -191,7 +191,7 @@ jobs:
           persist-credentials: false
       - uses: ./
         with:
-          aqua_version: v2.64.0
+          aqua_version: v2.65.1
           working_directory: tests
 
       - run: command -v aqua
