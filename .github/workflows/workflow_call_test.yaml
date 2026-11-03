@@ -3,53 +3,13 @@ name: test (workflow_call)
 on: workflow_call
 permissions: {}
 jobs:
-  path-filter:
-    # Get changed files to filter jobs
-    timeout-minutes: 10
-    outputs:
-      update-aqua-checksums: ${{steps.changes.outputs.update-aqua-checksums}}
-      renovate-config-validator: ${{steps.changes.outputs.renovate-config-validator}}
-      ghalint: ${{steps.changes.outputs.ghalint}}
-    runs-on: ubuntu-26.04
-    permissions: {}
-    steps:
-      - uses: dorny/paths-filter@v4.0.3
-        id: changes
-        with:
-          filters: |
-            renovate-config-validator:
-              - renovate.json5
-            ghalint:
-              - .github/workflows/*.yaml
-              - aqua/ghalint.yaml
-
-  renovate-config-validator:
-    # Validate Renovate Configuration by renovate-config-validator.
-    uses: suzuki-shunsuke/github-action-renovate-config-validator/.github/workflows/renovate-config-validator.yaml@1e1604219a6b38ae9a10aff42a28a3656322c31a # v2.4.1
-    needs: path-filter
-    if: needs.path-filter.outputs.renovate-config-validator == 'true'
+  test-workflow:
+    uses: suzuki-shunsuke/test-workflow/.github/workflows/test.yaml@0b89b9b4314282810bc944364380568708208eaa # v0.0.2
+    with:
+      aqua_version: v2.66.0
     permissions:
       contents: read
-
-  ghalint:
-    # Validate GitHub Actions Workflows by ghalint.
-    timeout-minutes: 20
-    needs: path-filter
-    if: needs.path-filter.outputs.ghalint == 'true'
-    runs-on: ubuntu-26.04
-    permissions:
-      contents: read
-    steps:
-      - uses: actions/checkout@v7.0.1
-        with:
-          persist-credentials: false
-      - uses: ./
-        with:
-          aqua_version: v2.66.0
-      - run: ghalint run
-        env:
-          GHALINT_LOG_COLOR: always
-          AQUA_GITHUB_TOKEN: ${{github.token}}
+      pull-requests: read
 
   test-script:
     timeout-minutes: 20
