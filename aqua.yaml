@@ -10,5 +10,5 @@ registries:
     ref: v4.581.1 # renovate: depName=aquaproj/aqua-registry
 packages:
   - name: suzuki-shunsuke/ghalint@v1.6.0
-  - name: suzuki-shunsuke/tfcmt@v4.14.20
+  - name: suzuki-shunsuke/tfcmt@v4.14.21
   - name: suzuki-shunsuke/pinact@v5.0.2
