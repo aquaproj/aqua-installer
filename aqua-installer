@@ -70,7 +70,14 @@ tempdir=$(mktemp -d)
 echo "[INFO] Installing aqua $bootstrap_version for bootstrapping..." >&2
 echo "[INFO] Downloading $URL ..." >&2
 if command -v curl >/dev/null 2>&1; then
-	curl --retry 5 --fail -L "$URL" -o "$tempdir/$filename"
+	# --retry alone retries only errors curl considers transient, which leaves out
+	# a 403 GitHub sometimes returns for a release asset.
+	# --retry-all-errors needs curl 7.71.0 or later.
+	curl_opts=(--retry 5 --fail -L)
+	if curl --help all 2>/dev/null | grep -q -- --retry-all-errors; then
+		curl_opts+=(--retry-all-errors)
+	fi
+	curl "${curl_opts[@]}" "$URL" -o "$tempdir/$filename"
 elif command -v wget >/dev/null 2>&1; then
 	wget -P "$tempdir" "$URL"
 else
